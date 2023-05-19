@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="general.css" />
+    <link rel="stylesheet" href="/website/static/nav_bar2.css" />
+
+    <title>NAVBAR2</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm">
+      <div class="container-fluid" style="overflow: hidden">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse"
+          style="overflow: hidden"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
+                href="/new_stock"
+                >New stock</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-2 btn-right-nav1"
+                href="track_usage"
+                >Track usage</a
+              >
+            </li>
+          </ul>
+          <a class="navbar-brand mx-auto" href="#" style="overflow: hidden"
+            ><img
+              class="logo"
+              src="/website/static/LabStockLogo.svg"
+              alt="Logo"
+          /></a>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item text-center">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
+                href="/statics"
+                >Statistics</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
+                href="/products"
+                >Products</a
+              >
+            </li>
+            <li class="nav-item btn-right-2">
+              <a href="/settings">
+                <img
+                  class="align-self"
+                  src="/website/static/settings.svg"
+                  style="
+                    height: 35px;
+                    width: auto;
+                    padding-top: 4px;
+                    color: #fffbfa;
+                  "
+                />
+              </a>
+            </li>
+            <li class="nav-item btn-right-2">
+              <a href="/goodbye">
+                <img
+                  class="align-self"
+                  src="/website/static/logout.svg"
+                  style="height: 35px; width: auto; padding-top: 4px"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

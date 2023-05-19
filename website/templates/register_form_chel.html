@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='general.css') }}"
+    />
+
+    <title>Login</title>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+    <form method="POST">
+      <h3 align="center">Register new lab</h3>
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Enter e-mail address"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          name="username"
+          placeholder="Enter username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>First name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="first_name"
+          name="first_name"
+          placeholder="Enter first name"
+        />
+      </div>
+      <div class="form-group">
+        <label>Last name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="last_name"
+          name="last_name"
+          placeholder="Enter last name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Laboratory position</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lab_role"
+          name="lab_role"
+          placeholder="Eg: medical assistant, anatomopathologist etc."
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          placeholder="Enter password"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Repeat password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="repeat_password"
+          name="repeat_password"
+          placeholder="Repeat password "
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Laboratory name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lab_name"
+          name="lab_name"
+          placeholder="Fullname of laboratory"
+        />
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </body>
+</html>

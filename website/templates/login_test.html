@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- <link rel="stylesheet" href="/website/static/general.css" /> -->
+    <!-- <link rel="stylesheet" href="/website/static/nav_bar1.css" /> -->
+    <!-- <link rel="stylesheet" href="/website/static/login_f.css" /> -->
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='general.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='nav_bar1.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='login_f.css') }}"
+    />
+
+    <title>Signin</title>
+  </head>
+
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <nav class="navbar navbar-expand-sm">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white"
+                href="#"
+                >New lab registration</a
+              >
+            </li>
+          </ul>
+          <a class="navbar-brand mx-auto" href="#"
+            ><img src="path/to/logo.png" alt="Logo"
+          /></a>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item text-center">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
+                href="#"
+                >Sign in</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1 btn-right-2"
+                href="#"
+                >Join lab</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="container-fluid d-flex flex-column justify-content-center align-items-center"
+      style="background-color: #fffbfa; height: calc(100vh - 60px)"
+    >
+      <div class="container h-75 d-flex justify-content-around px-0">
+        <div
+          class="sign-in-form d-flex flex-column justify-content-around align-items-center"
+        >
+          <form class="signin-form" method="POST">
+            <h3 align="center" style="margin-top: 0px">Sign in</h3>
+            <div class="form-group">
+              <label for="email">Username</label>
+              <input
+                class="form-control shadow-none"
+                id="username"
+                name="username"
+                placeholder="Enter username"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control shadow-none"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+              />
+            </div>
+            <div class="container d-flex justify-content-center">
+              <button type="submit" class="btn btn-custom js-signin-form">
+                Sign in
+              </button>
+              <button href="/signup" class="btn btn-custom btn-right-2">
+                Join lab
+              </button>
+            </div>
+          </form>
+        </div>
+        <img
+          src="{{ url_for('static', filename='Oncologist.svg') }}"
+          style="width: 50%; height: auto"
+        />
+      </div>
+      <div class="fixed-bottom text-center pb-2">
+        <a
+          class="info_link"
+          href="/aboutus"
+          style="color: #70cfad; text-decoration: underline"
+        >
+          Who are we?
+        </a>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='login.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/website/static/general.css" />
+    <link rel="stylesheet" href="/website/static/nav_bar1.css" />
+    <link rel="stylesheet" href="/website/static/about_us.css" />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='general.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='nav_bar1.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='about_us.css') }}"
+    />
+    <title>About us</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-sm">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white"
+                href="#"
+                >New lab registration</a
+              >
+            </li>
+          </ul>
+          <a class="navbar-brand mx-auto" href="#"
+            ><img src="path/to/logo.png" alt="Logo"
+          /></a>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item text-center">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
+                href="#"
+                >Sign in</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1 btn-right-2"
+                href="#"
+                >Join lab</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div
+      class="container-fluid d-flex flex-column justify-content-center align-items-center pt-2"
+      style="background-color: #fffbfa; height: calc(100vh - 60px)"
+    >
+      <div
+        class="container container_elements d-flex justify-content-center align-items-center"
+      >
+        <div
+          class="container about_us_table d-flex flex-column align-items-center"
+        >
+          <h3 align="center" class="who_title">Who are we?</h3>
+          <br />
+          <p>
+            &ensp; As a provider of software solutions for tracking substance
+            stocks in medical laboratories, we are proud to contribute to the
+            smooth functioning of medical laboratories and clinics. We admire
+            the effort put in by the medical professionals and are aware of the
+            importance of a conducive work environment in the proper functioning
+            of any medical laboratory or clinic.
+          </p>
+          <p>
+            &ensp;We believe that a promising work environment means
+            transparency, organization, and efficiency. Therefore, our website
+            is designed to help maintain these principles:
+          </p>
+          <div class="container features_box">
+            <p>
+              <b>
+                Alerts for expiration dates and minimum levels of medical
+                substances</b
+              >
+              <br />
+              Our website constantly monitors medical substance stocks and can
+              send notifications when a substance is approaching its expiration
+              date or the minimum amount required for the cabinet to function.
+              Thus, you can be sure that you will not have unpleasant surprises
+              when it comes to medical substance stocks.
+            </p>
+            <p>
+              <b> Consumption statistics</b> <br />
+              Our website provides detailed statistics on the consumption of
+              medical substances in the last 3 months, 6 months or a year. This
+              information can be useful for seeing clearly how you have spent
+              resources and identify areas where savings could be made.
+            </p>
+            <p>
+              <b> Consumption projections</b> <br />
+              Based on historical data, our website can make projections for
+              future consumption. These projections can be useful in helping to
+              plan and adequately stock medical substances, thus avoiding the
+              loss of time and money with the additional purchase of unused
+              stocks.
+            </p>
+          </div>
+          <br />
+          <p>
+            &ensp;Through the software solutions we offer, we sustain a
+            conducive and efficient work environment for medical professionals,
+            contributing to the development of a better medical system.
+          </p>
+        </div>
+        <img
+          src="{{ url_for('static', filename='Oncologist.svg') }}"
+          style="width: 50%; height: auto"
+        />
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

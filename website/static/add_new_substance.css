@@ -1,0 +1,84 @@
+/* FORMULAR */
+
+.form-group {
+  width: 70%;
+}
+
+.add-substance-form {
+  width: 30%;
+  max-height: 70%;
+  border-top: 2px solid #70cfad;
+  border-bottom: 2px solid #70cfad;
+  align-self: center;
+}
+
+.form-fields {
+  height: 50%;
+}
+
+.form-buttons {
+  margin-bottom: 20px;
+}
+
+form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* LIST PRODUCTS */
+
+.left-container {
+  /* border: 4px solid purple; */
+  width: 50%;
+  margin-right: 10rem;
+}
+
+.products_list_container {
+  /* border: 4px solid red; */
+  margin-left: 0px;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.info_text_select {
+  margin-bottom: 0;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  background-color: #fffbfa;
+}
+
+.card-substance {
+  /* border: 2px solid green; */
+  padding-top: 1rem;
+
+  border-bottom: 2px solid #70cfad;
+}
+
+.stars-container {
+  height: 20px;
+
+  /* background-color: beige; */
+}
+
+svg {
+  width: 20px;
+  /* border: 2px solid red; */
+  margin-right: 2px;
+}
+
+.card-text {
+  font-size: 16px;
+  margin-bottom: 1rem !important;
+}
+
+.buttons-container {
+  max-height: 10%;
+  /* border: 2px solid orange; */
+}
+
+.btn-right-2 {
+  width: 120px;
+}

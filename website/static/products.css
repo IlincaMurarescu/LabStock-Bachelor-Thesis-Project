@@ -1,0 +1,137 @@
+.main-container {
+  /* border: 2px solid black; */
+}
+
+/* QUALITY INCIDENTS */
+.container-right {
+  width: 60%;
+  height: 100%;
+  /* border: 2px solid red; */
+  /* place-content: start space-evenly !important; */
+}
+
+.score-container {
+  /* border: 2px solid blue; */
+}
+
+.rate-text {
+  font-size: 14px;
+  font-style: italic;
+  margin-bottom: 0;
+  margin-right: 3px;
+}
+
+.clickable-svg {
+  cursor: pointer;
+}
+
+.reviews-container {
+  border-top: 2px solid #70cfad;
+  border-bottom: 2px solid #70cfad;
+  max-height: 85%;
+  /* border: 2px solid brown; */
+  overflow-y: scroll;
+  position: relative;
+}
+
+.incidents-number-text {
+  width: 100%;
+  text-align: center;
+  padding-top: 3px;
+  padding-bottom: 15px;
+  position: sticky;
+  top: 0;
+  background-color: #fffbfa;
+}
+
+.review {
+  /* border: 2px solid orange; */
+  width: 100%;
+  margin-bottom: 9px;
+}
+.review-date {
+  padding-left: 15px;
+  font-weight: 600;
+  font-size: 14px;
+  align-self: flex-start;
+}
+.review-content {
+  align-self: center;
+  text-align: center;
+}
+
+.review-author {
+  padding-right: 15px;
+  align-self: flex-end;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.buttons-container-right {
+  margin-top: 15px;
+}
+
+/* LIST PRODUCTS */
+
+.left-container {
+  /* border: 4px solid purple; */
+  width: 50%;
+  margin-right: 10rem;
+}
+
+.products_list_container {
+  height: 90%;
+  /* width: 50%; */
+  /* border: 4px solid red; */
+  margin-left: 0px;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.info_text_select {
+  margin-bottom: 0;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  background-color: #fffbfa;
+}
+
+.card-substance {
+  /* border: 2px solid green; */
+  padding-top: 1rem;
+
+  border-bottom: 2px solid #70cfad;
+}
+.card-substance:hover {
+  /* asta nu e albul inchis ales initial, e cel de la scrollbar dar parca arata mai bine */
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+.card-substance:active {
+  background-color: #f1f1f1;
+}
+.stars-container {
+  height: 20px;
+
+  /* background-color: beige; */
+}
+
+svg {
+  width: 20px;
+  border: 2px solid red;
+  margin-right: 2px;
+}
+
+.card-text {
+  font-size: 16px;
+  margin-bottom: 1rem !important;
+}
+
+.buttons-container {
+  max-height: 10%;
+  /* border: 2px solid orange; */
+}
+
+.btn-right-2 {
+  width: 120px;
+}

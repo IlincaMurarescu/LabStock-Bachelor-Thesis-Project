@@ -1,0 +1,42 @@
+/* .container_elements {
+  width: 80%;
+} */
+
+.who_title {
+  padding-bottom: 3px;
+
+  border-bottom: 2px solid #70cfad;
+  width: 40%;
+}
+
+.about_us_table {
+  max-width: 70%;
+}
+
+.features_box {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: 170px;
+  width: 90%;
+}
+
+p {
+  font-size: 14px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #979494;
+  border-radius: 4px;
+}
