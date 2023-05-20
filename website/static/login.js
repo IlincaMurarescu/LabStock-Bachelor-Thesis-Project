@@ -3,7 +3,7 @@ document.querySelector(".signin-form").addEventListener("submit", (event) => {
 
   const formData = new FormData(event.target);
 
-  fetch("/logintest", {
+  fetch("/signin", {
     method: "POST",
     body: formData,
     credentials: "include",
@@ -13,17 +13,22 @@ document.querySelector(".signin-form").addEventListener("submit", (event) => {
       return res.json();
     })
     .then((data) => {
-      if (responseStatus != 200) {
-        alert(data);
-        console.log("cod 400");
+      if (responseStatus == 401) {
+        const errorMessageDiv = document.getElementById("error-message");
+        const errorMessage = data.message;
+        const errorTextElement = errorMessageDiv.querySelector(".error-text");
+        const closeButton = errorMessageDiv.querySelector(".close-button");
+        closeButton.addEventListener("click", function () {
+          errorMessageDiv.style.display = "none";
+        });
+        errorTextElement.textContent = errorMessage;
+        errorMessageDiv.style.display = "block";
       }
 
       if (responseStatus == 200) {
         const token = data.token;
-        // Do something with the token
-        console.log("Asta ar fi ", token);
         localStorage.setItem("token", token);
-        location.href = "/products";
+        location.href = "/statistics";
       }
     })
     .catch((err) => {

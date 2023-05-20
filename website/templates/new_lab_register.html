@@ -28,28 +28,18 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='nav_bar1.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='new_lab_register.css') }}"
+    />
 
     <title>New lab registration</title>
   </head>
   <body>
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %} {% for category, message in messages %} {% if category ==
-    'error' %}
-    <div class="alert alert-danger alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="error-message" id="error-message">
+      <p class="error-text"></p>
+      <button type="button" class="close-button">X</button>
     </div>
-    {% else %}
-    <div class="alert alert-success alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endif %} {% endfor %} {% endif %} {% endwith %}
-
     <nav class="navbar navbar-expand-sm">
       <div class="container-fluid">
         <button
@@ -68,26 +58,29 @@
             <li class="nav-item">
               <a
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white"
-                href="#"
+                href="/new_lab_registration"
                 >New lab registration</a
               >
             </li>
           </ul>
-          <a class="navbar-brand mx-auto" href="#"
-            ><img src="path/to/logo.png" alt="Logo"
+          <a class="navbar-brand mx-auto" href="/signin"
+            ><img
+              class="logo"
+              src="{{ url_for('static', filename='LabStockLogo.svg') }}"
+              alt="Logo"
           /></a>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item text-center">
               <a
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
-                href="#"
+                href="/signin"
                 >Sign in</a
               >
             </li>
             <li class="nav-item">
               <a
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1 btn-right-2"
-                href="#"
+                href="/signup"
                 >Join lab</a
               >
             </li>
@@ -105,7 +98,7 @@
       >
         <img
           class="align-self"
-          src="/website/static/Instant-analysis.svg"
+          src="{{ url_for('static', filename='Instant-analysis.svg') }}"
           style="min-width: 45%; height: auto"
         />
         <div
@@ -222,5 +215,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='new_lab_register.js') }}"></script>
   </body>
 </html>

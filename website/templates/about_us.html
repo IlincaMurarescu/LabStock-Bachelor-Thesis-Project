@@ -60,26 +60,29 @@
             <li class="nav-item">
               <a
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white"
-                href="#"
+                href="/new_lab_registration"
                 >New lab registration</a
               >
             </li>
           </ul>
           <a class="navbar-brand mx-auto" href="#"
-            ><img src="path/to/logo.png" alt="Logo"
+            ><img
+              class="logo"
+              src="{{ url_for('static', filename='LabStockLogo.svg') }}"
+              alt="Logo"
           /></a>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item text-center">
               <a
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
-                href="#"
+                href="/signin"
                 >Sign in</a
               >
             </li>
             <li class="nav-item">
               <a
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1 btn-right-2"
-                href="#"
+                href="/signup"
                 >Join lab</a
               >
             </li>
