@@ -28,7 +28,8 @@ document.querySelector(".signin-form").addEventListener("submit", (event) => {
       if (responseStatus == 200) {
         const token = data.token;
         localStorage.setItem("token", token);
-        location.href = "/statistics";
+        const url = "/statistics?token=" + encodeURIComponent(token);
+        location.href = url;
       }
     })
     .catch((err) => {

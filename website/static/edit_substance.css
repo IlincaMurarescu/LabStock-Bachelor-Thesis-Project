@@ -1,0 +1,126 @@
+.main-container {
+  /* border: 2px solid black; */
+}
+
+/* LIST PRODUCTS */
+
+.left-container {
+  /* border: 4px solid purple; */
+  width: 50%;
+  margin-right: 10rem;
+}
+
+.products_list_container {
+  /* border: 4px solid red; */
+  margin-left: 0px;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.info_text_select {
+  margin-bottom: 0;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  background-color: #fffbfa;
+}
+
+.card-substance {
+  /* border: 2px solid green; */
+  padding-top: 1rem;
+
+  border-bottom: 2px solid #70cfad;
+}
+.card-substance:hover {
+  /* asta nu e albul inchis ales initial, e cel de la scrollbar dar parca arata mai bine */
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+.card-substance:active {
+  background-color: #f1f1f1;
+}
+
+.selected {
+  background-color: #f1f1f1;
+}
+
+.stars-container {
+  height: 20px;
+
+  /* background-color: beige; */
+}
+
+.score-text {
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+svg {
+  width: 20px;
+  border: 2px solid red;
+  margin-right: 2px;
+}
+
+.card-text {
+  font-size: 16px;
+  margin-bottom: 1rem !important;
+}
+
+.buttons-container {
+  max-height: 10%;
+  /* border: 2px solid orange; */
+}
+
+/* FORMULAR */
+
+.form-group {
+  width: 70%;
+}
+
+.container-right {
+  width: 30%;
+  max-height: 90%;
+  border-top: 2px solid #70cfad;
+  border-bottom: 2px solid #70cfad;
+  align-self: center;
+}
+
+.form-fields {
+  height: 50%;
+}
+
+.form-buttons {
+  margin-bottom: 20px;
+}
+
+form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.form-box {
+  position: relative;
+}
+
+.delete-box {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-btn {
+  width: 100px;
+  height: 35px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.delete-info {
+  font-size: 14px;
+}

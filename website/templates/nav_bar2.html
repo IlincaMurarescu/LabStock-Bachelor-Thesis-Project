@@ -22,7 +22,7 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="general.css" />
+    <link rel="stylesheet" href="/website/static/general.css" />
     <link rel="stylesheet" href="/website/static/nav_bar2.css" />
 
     <title>NAVBAR2</title>
@@ -49,45 +49,49 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a
+                id="newstockButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
-                href="/new_stock"
                 >New stock</a
               >
             </li>
             <li class="nav-item">
               <a
+                id="trackusageButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-2 btn-right-nav1"
-                href="track_usage"
                 >Track usage</a
               >
             </li>
           </ul>
-          <a class="navbar-brand mx-auto" href="#" style="overflow: hidden"
+          <a
+            id="statisticsButton0"
+            class="navbar-brand mx-auto"
+            style="overflow: hidden"
             ><img
               class="logo"
-              src="/website/static/LabStockLogo.svg"
+              src="{{ url_for('static', filename='LabStockLogo.svg') }}"
               alt="Logo"
           /></a>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item text-center">
               <a
+                id="statisticsButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                href="/statics"
                 >Statistics</a
               >
             </li>
             <li class="nav-item">
               <a
+                id="substancesButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                href="/products"
-                >Products</a
+                >Substances</a
               >
             </li>
             <li class="nav-item btn-right-2">
-              <a href="/settings">
+              <a id="settingsButton">
                 <img
+                  alt="Settings"
                   class="align-self"
-                  src="/website/static/settings.svg"
+                  src="{{ url_for('static', filename='settings.svg') }}"
                   style="
                     height: 35px;
                     width: auto;
@@ -98,10 +102,11 @@
               </a>
             </li>
             <li class="nav-item btn-right-2">
-              <a href="/goodbye">
+              <a id="logoutButton">
                 <img
+                  alt="Logout"
                   class="align-self"
-                  src="/website/static/logout.svg"
+                  src="{{ url_for('static', filename='logout.svg') }}"
                   style="height: 35px; width: auto; padding-top: 4px"
                 />
               </a>
@@ -110,5 +115,6 @@
         </div>
       </div>
     </nav>
+    <script src="{{ url_for('static', filename='nav_bar2.js') }}"></script>
   </body>
 </html>

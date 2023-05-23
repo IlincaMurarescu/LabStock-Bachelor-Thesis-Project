@@ -1,0 +1,32 @@
+.main-container {
+  /* border: 2px solid black; */
+}
+
+/* FORMULAR */
+
+.form-group {
+  width: 70%;
+}
+
+.container-right {
+  width: 50%;
+  max-height: 90%;
+  border-top: 2px solid #70cfad;
+  border-bottom: 2px solid #70cfad;
+  align-self: center;
+}
+
+.form-fields {
+  height: 50%;
+}
+
+.form-buttons {
+  margin-bottom: 20px;
+}
+
+form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}

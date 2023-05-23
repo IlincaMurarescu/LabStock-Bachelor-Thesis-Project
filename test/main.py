@@ -82,6 +82,7 @@ def add_one_stock(unique_substance_code, unique_bottle_code, quantity, expiratio
     return stocks_collection.insert_one(new_stock)
 
 
+
 #--------------------------------------------------------------------------------------------------------------------------
 
 
@@ -99,8 +100,9 @@ def add_one_stock(unique_substance_code, unique_bottle_code, quantity, expiratio
 # result=users.insert_one(user1)
 # result=users.insert_many([user1, user1])
 # result=users_collection.find_one({"first_name": "Doina"})
-# result=users.find_one({"first_name": "Doina", "last_name": "Murarescu"})
-# print("The user found: " , result)
+
+# result=users_collection.find_one({"first_name": "Doina", "last_name": "Murarescu"}, {"_id": 0, "password": 1})
+# print("The user found: " , result['password'])
 
 
 # from bson.objectid import ObjectId

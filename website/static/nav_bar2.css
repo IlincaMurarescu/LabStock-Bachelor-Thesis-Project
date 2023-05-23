@@ -28,4 +28,15 @@
 .logo {
   height: 35px;
   width: auto;
+  cursor: pointer;
+}
+
+/* SVG ICONS */
+
+#settingsButton {
+  cursor: pointer;
+}
+
+#logoutButton {
+  cursor: pointer;
 }

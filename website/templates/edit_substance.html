@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" href="/website/static/general.css" />
     <link rel="stylesheet" href="/website/static/nav_bar2.css" />
-    <link rel="stylesheet" href="/website/static/products.css" />
+    <link rel="stylesheet" href="/website/static/edit_substance.css" />
 
     <link
       rel="stylesheet"
@@ -28,12 +28,13 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='nav_bar2.css') }}"
     />
+
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='products.css') }}"
+      href="{{ url_for('static', filename='edit_substance.css') }}"
     />
 
-    <title>Substances</title>
+    <title>Edit substance</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-sm">
@@ -97,6 +98,7 @@
             <li class="nav-item btn-right-2">
               <a id="settingsButton">
                 <img
+                  alt="Settings"
                   class="align-self"
                   src="{{ url_for('static', filename='settings.svg') }}"
                   style="
@@ -111,6 +113,7 @@
             <li class="nav-item btn-right-2">
               <a id="logoutButton">
                 <img
+                  alt="Logout"
                   class="align-self"
                   src="{{ url_for('static', filename='logout.svg') }}"
                   style="height: 35px; width: auto; padding-top: 4px"
@@ -134,11 +137,14 @@
         >
           <div class="container products_list_container">
             <p class="container info_text_select">
-              <em>Select a substance to see Quality incidents:</em>
+              <em>Select a substance to edit:</em>
             </p>
             <div class="scrollable-container">
               {% for substance in data %}
-              <div class="container card-substance">
+              <div
+                class="container card-substance"
+                substance-code="{{ substance.unique_substance_code }}"
+              >
                 <p class="score-text">
                   <em>Score: {{ substance.score }}/5</em>
                 </p>
@@ -250,103 +256,56 @@
               </div> -->
             </div>
           </div>
-          <div
-            class="container d-flex flex-row buttons-container justify-content-center"
-          >
-            <button id="addsubstanceButton" class="btn btn-custom">
-              Add substance
-            </button>
-            <button id="editsubstanceButton" class="btn btn-custom btn-right-2">
-              Edit
-            </button>
-          </div>
         </div>
 
-        <div class="container container-right d-flex flex-column">
-          <div class="container score-container d-flex align-items-center">
-            <p class="rate-text">Rate this product:</p>
-            <div class="stars-container d-flex justify-content-start">
-              <svg class="clickable-svg">a</svg>
-              <svg class="clickable-svg">a</svg>
-              <svg class="clickable-svg">a</svg>
-              <svg class="clickable-svg">a</svg>
-              <svg class="clickable-svg">a</svg>
-            </div>
-          </div>
-          <div
-            class="container reviews-container d-flex flex-column align-items-center"
-          >
-            <h6 class="incidents-number-text">
-              <em>Quality incidents for Acid ascorbic: 2</em>
+        <div class="container form-box container-right d-flex flex-column">
+          <form class="editsubstance-form" method="POST">
+            <h6 class="mt-3" align="center">
+              <em>Modify one of the following fields:</em>
             </h6>
-            <div class="review d-flex flex-column justify-content-between">
-              <div class="review-date">07/05/2023</div>
-              <div class="review-content">
-                Nu e normal asa ceva! Imi dau demisia cu produse dinastea!!
+            <div
+              class="form-fields d-flex flex-column justify-content-around align-items-center mr-sm-2"
+            >
+              <div class="form-group">
+                <label for="substance_name">Name</label>
+                <input
+                  class="form-control"
+                  id="substance_name"
+                  name="substance_name"
+                  placeholder=""
+                />
               </div>
-              <div class="review-author">Ioana Marinescu</div>
-            </div>
-            <div class="review d-flex flex-column justify-content-between">
-              <div class="review-date">07/05/2023</div>
-              <div class="review-content">
-                Nu e normal asa ceva! Imi dau demisia cu produse dinastea!!
+
+              <div class="form-group">
+                <label>Producer</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="substance_producer"
+                  name="substance_producer"
+                  placeholder=" "
+                />
               </div>
-              <div class="review-author">Ioana Marinescu</div>
             </div>
-            <div class="review d-flex flex-column justify-content-between">
-              <div class="review-date">07/05/2023</div>
-              <div class="review-content">
-                Nu e normal asa ceva! Vreti sa innebunesc?! Imi dau demisia cu
-                produse dinastea!!
-              </div>
-              <div class="review-author">Ioana Marinescu</div>
+
+            <div class="container d-flex justify-content-center">
+              <button
+                type="submit"
+                class="btn mb-3 btn-custom justify-self-center"
+              >
+                Edit subtance
+              </button>
             </div>
-            <div class="review d-flex flex-column justify-content-between">
-              <div class="review-date">07/05/2023</div>
-              <div class="review-content">
-                Nu e normal asa ceva! Vreti sa innebunesc?! Imi dau demisia cu
-                produse dinastea!!
-              </div>
-              <div class="review-author">Ioana Marinescu</div>
-            </div>
-            <div class="review d-flex flex-column justify-content-between">
-              <div class="review-date">07/05/2023</div>
-              <div class="review-content">
-                Nu e normal asa ceva! Vreti sa innebunesc?! Imi dau demisia cu
-                produse dinastea!!
-              </div>
-              <div class="review-author">Ioana Marinescu</div>
-            </div>
-            <div class="review d-flex flex-column justify-content-between">
-              <div class="review-date">07/05/2023</div>
-              <div class="review-content">
-                Nu e normal asa ceva! Vreti sa innebunesc?! Imi dau demisia cu
-                produse dinastea!!
-              </div>
-              <div class="review-author">Ioana Marinescu</div>
-            </div>
-            <div class="review d-flex flex-column justify-content-between">
-              <div class="review-date">07/05/2023</div>
-              <div class="review-content">
-                Nu e normal asa ceva! Vreti sa innebunesc?! Imi dau demisia cu
-                produse dinastea!!
-              </div>
-              <div class="review-author">Ioana Marinescu</div>
-            </div>
-            <div class="review d-flex flex-column justify-content-between">
-              <div class="review-date">07/05/2023</div>
-              <div class="review-content">
-                Nu e normal asa ceva! Vreti sa innebunesc?! Imi dau demisia cu
-                produse dinastea!!
-              </div>
-              <div class="review-author">Ioana Marinescu</div>
-            </div>
-          </div>
-          <div
-            class="container d-flex flex-row buttons-container buttons-container-right justify-content-center"
-          >
-            <button type="submit" class="btn btn-custom">
-              Add quality incident
+          </form>
+          <div class="delete-box">
+            <p class="delete-info">
+              <em
+                >Or you can delete the substance. <br />
+                This action is irreversible!</em
+              >
+            </p>
+            <button class="btn delete-btn mb-3 btn-custom justify-self-center">
+              Delete
             </button>
           </div>
         </div>
@@ -355,7 +314,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="{{ url_for('static', filename='products.js') }}"></script>
     <script src="{{ url_for('static', filename='nav_bar2.js') }}"></script>
+    <script src="{{ url_for('static', filename='edit_substance.js') }}"></script>
   </body>
 </html>

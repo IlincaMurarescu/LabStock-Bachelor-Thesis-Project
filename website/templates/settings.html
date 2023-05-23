@@ -15,31 +15,26 @@
       crossorigin="anonymous"
     />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <link rel="stylesheet" href="general.css" />
+    <link rel="stylesheet" href="/website/static/general.css" />
     <link rel="stylesheet" href="/website/static/nav_bar2.css" />
-    <link rel="stylesheet" href="/website/static/statistics.css" />
+    <link rel="stylesheet" href="/website/static/settings.css" />
 
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='general.css') }}"
     />
+
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='nav_bar2.css') }}"
     />
+
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='statistics.css') }}"
+      href="{{ url_for('static', filename='settings.css') }}"
     />
 
-    <title>Statistics</title>
+    <title>Settings</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-sm">
@@ -63,49 +58,48 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a
-                id="newstockButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
+                href="/new_stock"
                 >New stock</a
               >
             </li>
             <li class="nav-item">
               <a
-                id="trackusageButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-2 btn-right-nav1"
+                href="/track_usage"
                 >Track usage</a
               >
             </li>
           </ul>
           <a
-            id="statisticsButton0"
             class="navbar-brand mx-auto"
+            href="/statistics"
             style="overflow: hidden"
             ><img
               class="logo"
-              src="{{ url_for('static', filename='LabStockLogo.svg') }}"
+              src="/website/static/LabStockLogo.svg"
               alt="Logo"
           /></a>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item text-center">
               <a
-                id="statisticsButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
+                href="/statistics"
                 >Statistics</a
               >
             </li>
             <li class="nav-item">
               <a
-                id="substancesButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                >Substances</a
+                href="/products"
+                >Products</a
               >
             </li>
             <li class="nav-item btn-right-2">
-              <a id="settingsButton">
+              <a href="/settings">
                 <img
-                alt="Settings"
                   class="align-self"
-                  src="{{ url_for('static', filename='settings.svg') }}"
+                  src="/website/static/settings.svg"
                   style="
                     height: 35px;
                     width: auto;
@@ -116,11 +110,10 @@
               </a>
             </li>
             <li class="nav-item btn-right-2">
-              <a id="logoutButton">
+              <a href="/goodbye">
                 <img
-                alt="Logout"
                   class="align-self"
-                  src="{{ url_for('static', filename='logout.svg') }}"
+                  src="/website/static/logout.svg"
                   style="height: 35px; width: auto; padding-top: 4px"
                 />
               </a>
@@ -129,6 +122,66 @@
         </div>
       </div>
     </nav>
-    <script src="{{ url_for('static', filename='nav_bar2.js') }}"></script>
+
+    <div
+      class="container-fluid d-flex flex-column justify-content-center align-items-center"
+      style="background-color: #fffbfa; height: calc(100vh - 60px)"
+    >
+      <div
+        class="main-container container h-75 d-flex flex-row justify-content-between align-items-center px-0"
+      >
+        <div class="left-container d-flex flex-column justify-content-between">
+          <ul>
+            <li>
+              <p class="data-info">Username:</p>
+              <p id="username">#</p>
+            </li>
+            <li>
+              <p class="data-info">Full name:</p>
+              <p id="first_name">#</p>
+              <p id="last_name">#</p>
+            </li>
+            <li>
+              <p class="data-info">Laboratory:</p>
+              <p id="lab">#</p>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          class="container right-container d-flex flex-column justify-content-around justify-content-md-around"
+        >
+          buton+lista
+          <div class="button-box">
+            <button class="btn csv-btn mb-3 btn-custom">
+              Download CSV file
+            </button>
+            <p class="csv-info">
+              <em
+                >Here you can download locally all your current substances
+                stocks.</em
+              >
+            </p>
+          </div>
+          <div class="admin-box">
+            <div class="labcode-box">
+              <p class="code-info">
+                This is the unique laboratory code. Every member will need to
+                enter it when creating an account.
+              </p>
+
+              <p id="labcode">###</p>
+            </div>
+            <br />
+            <div class="users-box">
+              <h6>Select a new user to validate their acount:</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
   </body>
 </html>

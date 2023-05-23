@@ -41,13 +41,13 @@ def add_one_lab(name):
     return labs_collection.insert_one(new_lab), unique_lab_code
 
 def add_one_substance(substance_name, producer_name, inferior_limit, lab_code):
-
+    unique_substance_code=generate_unique_code()
     new_substance={"substance_name":substance_name,
                "producer_name":producer_name,
                 "unique_substance_code":generate_unique_code(),
                 "total_quantity": 0,
                 "inferior_limit": inferior_limit,
-                "laboratory_code" : lab_code
+                "substance_code" : unique_substance_code
                 }
     return substance_types_collection.insert_one(new_substance)
 

@@ -42,9 +42,11 @@ def home():
                 session['logged_in']=True
                 token=jwt.encode({
                     'user': username,
-                    'expiration': str(datetime.utcnow()+timedelta(seconds=120))
-                }, 'tralala')
+                    'expiration': str(datetime.utcnow()+timedelta(hours=30))
+                }, 'tralala', "HS256")
+                print("THE TOKEN IS: ", token)
                 return jsonify({'token': token})
+                # return jsonify({'token' : token.decode('UTF-8')})
                         # jwt.decode(jwt=token, )
             
     return render_template('login_test.html')

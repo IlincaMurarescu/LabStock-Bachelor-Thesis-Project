@@ -1,0 +1,65 @@
+/* USER INFO */
+
+li {
+  list-style-type: none;
+  padding-top: 7px;
+}
+
+p {
+  display: inline;
+}
+
+.data-info {
+  font-style: italic;
+}
+
+.left-container {
+  /* border: 4px solid purple; */
+  width: 50%;
+  margin-right: 10rem;
+  border-bottom: 2px solid #70cfad;
+  border-top: 2px solid #70cfad;
+}
+
+/* RIGHT PART */
+
+.right-container {
+  border: 4px solid purple;
+}
+
+.button-box {
+  border: 4px solid red;
+  width: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.csv-info {
+  font-size: 14px;
+}
+
+.csv-btn {
+  width: 180px;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+/* ADMIN BOX */
+
+.admin-box {
+  border: 4px solid orange;
+  border-top: 2px solid #70cfad;
+}
+
+.code-info {
+  font-size: 14px;
+}
+
+#labcode {
+  font-weight: 600;
+}
+
+.users-box {
+  border: 4px solid purple;
+}

@@ -116,6 +116,11 @@
   /* background-color: beige; */
 }
 
+.score-text {
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
 svg {
   width: 20px;
   border: 2px solid red;
@@ -130,8 +135,4 @@ svg {
 .buttons-container {
   max-height: 10%;
   /* border: 2px solid orange; */
-}
-
-.btn-right-2 {
-  width: 120px;
 }
