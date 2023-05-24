@@ -138,7 +138,10 @@
             </p>
             <div class="scrollable-container">
               {% for substance in data %}
-              <div class="container card-substance">
+              <div
+                class="container card-substance"
+                substance-code="{{ substance.unique_substance_code }}"
+              >
                 <p class="score-text">
                   <em>Score: {{ substance.score }}/5</em>
                 </p>
@@ -264,22 +267,38 @@
 
         <div class="container container-right d-flex flex-column">
           <div class="container score-container d-flex align-items-center">
-            <p class="rate-text">Rate this product:</p>
+            <form class="score-form" method="POST">
+              <label for="score" class="rate-text">Rate this product:</label>
+              <select name="score" id="score" class="score-box">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <button
+                type="submit"
+                class="btn btn-custom js-rate-form btn-score"
+              >
+                Submit score
+              </button>
+            </form>
+            <!-- <p class="rate-text">Rate this product:</p>
             <div class="stars-container d-flex justify-content-start">
               <svg class="clickable-svg">a</svg>
               <svg class="clickable-svg">a</svg>
               <svg class="clickable-svg">a</svg>
               <svg class="clickable-svg">a</svg>
               <svg class="clickable-svg">a</svg>
-            </div>
+            </div> -->
           </div>
           <div
             class="container reviews-container d-flex flex-column align-items-center"
           >
-            <h6 class="incidents-number-text">
+            <!-- <h6 class="incidents-number-text">
               <em>Quality incidents for Acid ascorbic: 2</em>
-            </h6>
-            <div class="review d-flex flex-column justify-content-between">
+            </h6> -->
+            <!-- <div class="review d-flex flex-column justify-content-between">
               <div class="review-date">07/05/2023</div>
               <div class="review-content">
                 Nu e normal asa ceva! Imi dau demisia cu produse dinastea!!
@@ -340,12 +359,12 @@
                 produse dinastea!!
               </div>
               <div class="review-author">Ioana Marinescu</div>
-            </div>
+            </div> -->
           </div>
           <div
             class="container d-flex flex-row buttons-container buttons-container-right justify-content-center"
           >
-            <button type="submit" class="btn btn-custom">
+            <button type="submit" class="btn btn-custom" id="addqiButton">
               Add quality incident
             </button>
           </div>

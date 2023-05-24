@@ -52,6 +52,17 @@ def prod(user):
      data=entities_db_functions.get_lab_substances(lab_code)
      return render_template('products.html', data=data)
 
+@views.route('/get_qualityi',methods=['GET', 'POST'])
+@token_required
+def get_qualityi(user):
+      if request.method == 'POST':
+         data=request.json
+         print("------macar suntem aici! avem si data: ", data)
+         unique_substance_code=data['substanceCode']
+         data=entities_db_functions.get_substance_qi(unique_substance_code)
+         return jsonify(data), 200
+
+
 
 
 @views.route('/add_substance',methods=['GET', 'POST'])
@@ -96,12 +107,41 @@ def editsubstance(user):
 def deletesubstance(user):
 
      if request.method == 'POST':
-     #     request.
          data=request.json
-     #     unique_substance_code=request.form.get('substanceCode')
-     #     print("--------------------", request)
-     #     print("=======================", unique_substance_code)
+
          unique_substance_code=data['substanceCode']
          lab_code=entities_db_functions.find_labcode(user)
          result=entities_db_functions.delete_one_substance( unique_substance_code)
          return jsonify({'message': 'The substance has been deleted!'}), 200
+
+
+
+@views.route('/scoresubmit',methods=['GET', 'POST'])
+@token_required
+def scoresubmit(user):
+     if request.method == 'POST':
+         substance_score=request.form.get('score')
+         substance_code=request.form.get('substanceCode')
+         result=entities_db_functions.update_score(substance_score, substance_code)
+         return jsonify({'message': 'The substance has been edited!'}), 200
+
+
+
+@views.route('/add_qi',methods=['GET', 'POST'])
+@token_required
+def addqi(user):
+     if request.method == 'GET':
+          substancecode=request.args.get('substancecode')
+          data=entities_db_functions.get_substance_nameprod(substancecode)
+          print('--------- data is ', data)
+          return render_template('add_incident.html', data=data)
+     if request.method == 'POST':
+         content=request.form.get('content')
+         substance_code=request.form.get('substanceCodeQi')
+         username=user
+         local = datetime.now()
+         date= local.strftime("%m/%d/%Y")                      
+         lab_code=entities_db_functions.find_labcode(user)
+         result=entities_db_functions.add_qi(content, date, substance_code, user, lab_code)
+         return jsonify({'message': 'The qi has been added!'}), 200
+

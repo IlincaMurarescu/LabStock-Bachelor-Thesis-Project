@@ -2,7 +2,7 @@
   /* border: 2px solid black; */
 }
 
-/* QUALITY INCIDENTS */
+/*RIGHT PART*/
 .container-right {
   width: 60%;
   height: 100%;
@@ -10,21 +10,45 @@
   /* place-content: start space-evenly !important; */
 }
 
+/* SCORE */
 .score-container {
   /* border: 2px solid blue; */
+  margin-bottom: 3px;
 }
 
 .rate-text {
   font-size: 14px;
   font-style: italic;
   margin-bottom: 0;
-  margin-right: 3px;
+}
+
+.score-box {
+  border: none;
+  background-color: #fffbfa;
+}
+.score-box:active {
+  border: none;
+}
+.score-box::after {
+  border: none;
 }
 
 .clickable-svg {
   cursor: pointer;
 }
 
+.btn-score {
+  height: 25px;
+  font-size: 14px;
+  font-weight: 400 !important;
+  margin-bottom: 2px;
+  margin-left: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* QUALITY INCIDENTS */
 .reviews-container {
   border-top: 2px solid #70cfad;
   border-bottom: 2px solid #70cfad;
@@ -110,6 +134,11 @@
 .card-substance:active {
   background-color: #f1f1f1;
 }
+
+.selected {
+  background-color: #f1f1f1;
+}
+
 .stars-container {
   height: 20px;
 
