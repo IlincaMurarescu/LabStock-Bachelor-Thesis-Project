@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="/website/static/general.css" />
     <link rel="stylesheet" href="/website/static/nav_bar2.css" />
-    <link rel="stylesheet" href="/website/static/statistics.css" />
+    <link rel="stylesheet" href="/website/static/statistics_details.css" />
 
     <link
       rel="stylesheet"
@@ -36,10 +36,11 @@
     />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='statistics.css') }}"
+      href="{{ url_for('static', filename='statistics_details.css') }}"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <title>Statistics</title>
+    <title>Statistics details</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-sm">
@@ -134,41 +135,58 @@
       style="background-color: #fffbfa; height: calc(100vh - 60px)"
     >
       <div
-        class="main-row container h-75 d-flex flex-column justify-content-around px-0"
+        class="main-row container h-100 d-flex flex-column justify-content-around px-0"
       >
-        <p class="container info_text_select">
-          <b>Select a substance to see more details:</b>
-        </p>
-        <div class="scrollable-container">
-          {% for substance in data %}
-          <div
-            class="container card-substance"
-            substance-code="{{ substance.unique_substance_code }}"
-          >
-            <div class="substance-basic-info">
-              <p class="score-text">
-                <em>Score: {{ substance.score }}/5</em>
-              </p>
+        <div
+          class="container card-substance"
+          substance-code="{{ substance[0].unique_substance_code }}"
+        >
+          <div class="substance-basic-info">
+            <p class="score-text">
+              <em>Score: {{ substance[0].score }}/5</em>
+            </p>
 
-              <h5 class="card-title m-0">
-                <b>{{ substance.substance_name }}</b>
-              </h5>
-              <p class="card-text">{{ substance.producer_name }}</p>
-            </div>
-            <div class="statistics-info">
-              <p class="statistics-line">
-                ● Last week average consumption: {{substance.average}} g/day
-              </p>
-              <p class="statistics-line">
-                ● Total quantity left: {{substance.total_quantity}} g
-              </p>
-            </div>
+            <h5 class="card-title m-0">
+              <b>{{ substance[0].substance_name }}</b>
+            </h5>
+            <p class="card-text">{{ substance[0].producer_name }}</p>
           </div>
-          {% endfor %}
+          <div class="statistics-info">
+            <p class="statistics-line" id="consumption-link">
+              ● Last week average consumption: {{substance[0].average}} g/day
+            </p>
+            <p class="statistics-line" id="quantity-link">
+              ● Total quantity left: {{substance[0].total_quantity}} g
+            </p>
+          </div>
+        </div>
+        <div class="statistics-row d-flex">
+          <!-- <p class="chart-summary">
+            Total quantity consumed: . Average consumption: /week
+          </p>
+          <canvas class="statistics_box" id="statistics_box"> </canvas>
+          <div class="buttons-box d-flex flex-column">
+            <button
+              id="3m-btn"
+              class="btn 3m-btn mb-3 btn-custom justify-self-center"
+            >
+              3 months</button
+            ><button
+              id="6m-btn"
+              class="btn 6m-btn mb-3 btn-custom justify-self-center"
+            >
+              6 months</button
+            ><button
+              id="1y-btn"
+              class="btn 1y-btn mb-3 btn-custom justify-self-center"
+            >
+              1 year
+            </button>
+          </div> -->
         </div>
       </div>
     </div>
     <script src="{{ url_for('static', filename='nav_bar2.js') }}"></script>
-    <script src="{{ url_for('static', filename='statistics.js') }}"></script>
+    <script src="{{ url_for('static', filename='statistics_details.js') }}"></script>
   </body>
 </html>

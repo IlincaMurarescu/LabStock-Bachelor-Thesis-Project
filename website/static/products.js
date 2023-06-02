@@ -34,12 +34,14 @@ listItems.forEach((item) => {
       .then((data) => {
         if (responseStatus == 200) {
           let html = "";
+          const substancename = data.length > 0 ? data[0].substancename : "";
+
           html += `
           <h6 class="incidents-number-text">
-            <em>Quality incidents for ${substanceCode}: ${data.length}</em>
+            <em>Quality incidents for ${substancename}: ${data.length}</em>
           </h6>
         `;
-          data.map((qi) => {
+          data.forEach((qi) => {
             html += `
            
             <div class="review d-flex flex-column justify-content-between">

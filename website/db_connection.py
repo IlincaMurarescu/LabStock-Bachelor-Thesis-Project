@@ -13,3 +13,4 @@ labs_collection=db.Laboratories
 substance_types_collection=db.Substance_types
 stocks_collection=db.Stocks
 quality_incidents_collection=db.Quality_incidents
+consumption_collection=db.Consumption

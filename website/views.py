@@ -4,6 +4,7 @@ import jwt
 from datetime import datetime, timedelta
 from functools import wraps
 from website import entities_db_functions
+from website.aux_functions import is_valid_date
 
 
 views = Blueprint('views', __name__)
@@ -40,9 +41,9 @@ def aboutus():
 @views.route('/statistics')
 @token_required
 def statistics(user):
-     text="Hello, "+ user
-    #  return jsonify({'message': text}), 200
-     return render_template('statistics.html')
+     lab_code=entities_db_functions.find_labcode(user)
+     data=entities_db_functions.get_lab_substances(lab_code)
+     return render_template('statistics.html', data=data, )
 
 @views.route('/substances',methods=['GET', 'POST'])
 @token_required
@@ -133,15 +134,129 @@ def addqi(user):
      if request.method == 'GET':
           substancecode=request.args.get('substancecode')
           data=entities_db_functions.get_substance_nameprod(substancecode)
-          print('--------- data is ', data)
           return render_template('add_incident.html', data=data)
      if request.method == 'POST':
          content=request.form.get('content')
          substance_code=request.form.get('substanceCodeQi')
          username=user
          local = datetime.now()
-         date= local.strftime("%m/%d/%Y")                      
+         date= local.strftime("%d/%m/%Y")                      
          lab_code=entities_db_functions.find_labcode(user)
          result=entities_db_functions.add_qi(content, date, substance_code, user, lab_code)
          return jsonify({'message': 'The qi has been added!'}), 200
 
+
+
+@views.route('/new_stock',methods=['GET', 'POST'])
+@token_required
+def addstock(user):
+     if request.method == 'GET':
+
+          lab_code=entities_db_functions.find_labcode(user)
+          data=entities_db_functions.get_lab_substances(lab_code)
+
+          return render_template('add_stock.html', data=data)
+
+     if request.method == 'POST':
+         substancecode=request.form.get('substancecode')
+         bottlecode=request.form.get('vial_code')
+         quantity=request.form.get('stock_quantity')
+         expiration_date=request.form.get('expiration_date')
+
+         if quantity.isdigit() is False:
+             return jsonify({'message': 'Please enter a number for the quantity.'}), 400
+         if is_valid_date(expiration_date) is False:
+             return jsonify({'message': 'Please respect the expiration date format in the example.'}), 400
+     
+         lab_code=entities_db_functions.find_labcode(user)
+         result=entities_db_functions.add_one_stock(substancecode, bottlecode, quantity, expiration_date, lab_code)
+         if isinstance(result, str):
+              return jsonify({'message': result}), 400
+
+
+
+         return jsonify({'message': 'The qi has been added!'}), 200
+
+
+
+@views.route('/track_usage',methods=['GET', 'POST'])
+@token_required
+def trackusage(user):
+     if request.method == 'GET':
+
+          lab_code=entities_db_functions.find_labcode(user)
+          data=entities_db_functions.get_lab_substances(lab_code)
+
+          return render_template('track_usage.html', data=data)
+
+     if request.method == 'POST':
+         substancecode=request.form.get('substancecode')
+         bottlecode=request.form.get('vial_code')
+         quantity=request.form.get('consume_quantity')
+
+         if quantity.isdigit() is False:
+             return jsonify({'message': 'Please enter a number for the quantity.'}), 400
+        
+         result=entities_db_functions.update_after_usage(substancecode, bottlecode, quantity)
+         if result!='Quantities updated':
+             return jsonify({'message': result}), 400
+
+         return jsonify({'message': 'The qi has been added!'}), 200
+
+
+@views.route('/settings', methods=['GET', 'POST'])
+@token_required
+def settings(user):
+     if request.method == 'GET':
+
+          data=entities_db_functions.get_user_data(user)
+          data2=entities_db_functions.get_invalidusers(user)
+          if data2==0:
+              return render_template('settings.html', data=data, admin=0)
+          print("VALIDATE IS: ", data2)
+          return render_template('settings.html', data=data, data2=data2, admin=1)
+
+     if request.method == 'POST':
+         substancecode=request.form.get('substancecode')
+         bottlecode=request.form.get('vial_code')
+         quantity=request.form.get('consume_quantity')
+
+         if quantity.isdigit() is False:
+             return jsonify({'message': 'Please enter a number for the quantity.'}), 400
+        
+         result=entities_db_functions.update_after_usage(substancecode, bottlecode, quantity)
+         if result!='Quantities updated':
+             return jsonify({'message': result}), 400
+
+         return jsonify({'message': 'The qi has been added!'}), 200
+
+
+
+@views.route('/statistics_details', methods=['GET', 'POST'])
+@token_required
+def statistics_details(user):
+    if request.method=='GET':
+        substance_code=request.args.get('substanceCode')
+        substance=entities_db_functions.get_substance_info(substance_code)
+        
+        return render_template('statistics_details.html', substance=substance)
+
+    if request.method=='POST':
+        data=request.json
+        substance_code=data['substanceCode']
+        chart_type=data['chartType']
+        if chart_type==1:
+            time_period=data['timePeriod']
+            periods, quantities, charttexttotal, charttextaverage=entities_db_functions.calculate_consumption(substance_code, time_period)
+            if charttextaverage.is_integer():
+                charttextaverage=int(charttextaverage)
+            else:
+                charttextaverage=round(charttextaverage, 2)
+            print("========================",periods, quantities)
+            data={ 'labels': periods, 
+                'values': quantities}
+            return jsonify({"data": data, "chartSummary": [charttexttotal, charttextaverage]}), 200      
+        else:
+            print("s-a facut request")
+            data, mysum=entities_db_functions.get_stocks_situation(substance_code)
+            return jsonify({"data": data, "chartSummary": mysum}), 200

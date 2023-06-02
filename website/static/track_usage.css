@@ -39,6 +39,11 @@
 .card-substance:active {
   background-color: #f1f1f1;
 }
+
+.selected {
+  background-color: #f1f1f1;
+}
+
 .stars-container {
   height: 20px;
 

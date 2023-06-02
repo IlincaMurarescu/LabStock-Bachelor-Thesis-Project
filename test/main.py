@@ -22,6 +22,7 @@ users_collection=db.Users
 labs_collection=db.Laboratories
 substance_types_collection=db.Substance_types
 stocks_collection=db.Stocks
+cons_col=db.Consumption
 
 #FUNCTII AJUTATOARE PENTRU ADAUGAT--------------------------------------------------------------------
 def generate_unique_code():
@@ -109,3 +110,36 @@ def add_one_stock(unique_substance_code, unique_bottle_code, quantity, expiratio
 # result=users.find_one({"_id": ObjectId("6434781c83a8dfe90c23020c")})
 # print("The user found: " , result)
 
+
+from datetime import datetime, timedelta, date
+
+def ajutor():
+    # today = datetime.now()
+    # one_week_ago = today - timedelta(weeks=3)
+
+    # condition = {
+    #     'bottle_code':'ec',
+    #     'date': {'$gte': one_week_ago, '$lte': today}
+    # }
+
+    # result = cons_col.find(condition)  # înlocuiește 'nume_colectie' cu numele colecției reale
+    # if result is None:
+    #     return 0
+    # total_quantity = 0
+    
+    # for doc in result:
+    #     print(doc['date'])
+    #     new Date()
+
+    date=datetime.now()-timedelta(weeks=2)
+    format_date=date.isoformat()
+    new_consumption={"substance_code":"1GJGOpzx",
+               "bottle_code":"COD",
+                "quantity":8,
+                "date": datetime.now()-timedelta(weeks=2)
+                }
+    return cons_col.insert_one(new_consumption)
+
+
+
+ajutor()

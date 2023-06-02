@@ -36,11 +36,18 @@ body {
 
 .btn {
   background-color: #70cfad;
+  box-shadow: none !important;
 }
 
 .btn:hover {
   background-color: #69be9f;
   color: #fffbfa;
+}
+
+.btn:active,
+.btn:focus {
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 /* SCROLLBAR */
@@ -62,6 +69,10 @@ body {
   border-radius: 4px;
   background: #b9b6b6;
   /* background: #cecaca; */
+}
+
+.scrollable-container:last-child {
+  border-bottom: none !important;
 }
 
 /* ERROR MESSAGE */

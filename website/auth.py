@@ -170,7 +170,7 @@ def register_user():
 
         elif db_functions.validate_register_password(password, password_repeat)==False:
             return jsonify({'message': 'The passwords do not correspond!'}), 401
-        elif db_functions.validate_register_lab(lab_code)==False:
+        elif db_functions.validate_register_lab(lab_code)==True:
             return jsonify({'message': 'The laboratory code does not exist!'}), 401
         else:
             result=db_functions.add_one_user(username, first_name, last_name, email, password, lab_code, lab_role, 0)
@@ -215,3 +215,20 @@ def register_user():
 #             return render_template('login_test.html')
 
 #     return render_template('new_user_register.html')
+
+
+
+
+@auth.route('/validate_user',methods=[ 'POST'])
+@token_required
+def validate_user(user):
+
+     if request.method == 'POST':
+         data=request.json
+         username=data['username']
+         result=db_functions.validate_account(user)
+         if result!='User updated':
+              return jsonify({'message': result}), 400
+
+         return jsonify({'message': 'The substance has been deleted!'}), 200
+

@@ -139,6 +139,21 @@ def validate_register_lab(lab_code):
     return False
 
 
+# FUNCTII UPDATE---------------------------------------------
+
+
+def validate_account(username):
+    criteria = {"username": username}
+
+    user = users_collection.find_one(criteria)
+    if user:
+        user['valid_account']=1
+        users_collection.replace_one(criteria, user)
+        return 'User updated'
+    else:
+        return 'Something went wrong! Please try again.'
+
+
 # print (validate_login_password("a", "ana"))
 
 

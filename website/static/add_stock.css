@@ -61,8 +61,8 @@ svg {
   /* border: 2px solid orange; */
 }
 
-.btn-right-2 {
-  width: 120px;
+.selected {
+  background-color: #f1f1f1;
 }
 
 /* FORMULAR */

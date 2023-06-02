@@ -58,48 +58,49 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <a
+                id="newstockButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
-                href="/new_stock"
                 >New stock</a
               >
             </li>
             <li class="nav-item">
               <a
+                id="trackusageButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-2 btn-right-nav1"
-                href="/track_usage"
                 >Track usage</a
               >
             </li>
           </ul>
           <a
+            id="statisticsButton0"
             class="navbar-brand mx-auto"
-            href="/statistics"
             style="overflow: hidden"
             ><img
               class="logo"
-              src="/website/static/LabStockLogo.svg"
+              src="{{ url_for('static', filename='LabStockLogo.svg') }}"
               alt="Logo"
           /></a>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item text-center">
               <a
+                id="statisticsButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                href="/statistics"
                 >Statistics</a
               >
             </li>
             <li class="nav-item">
               <a
+                id="substancesButton"
                 class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                href="/products"
-                >Products</a
+                >Substances</a
               >
             </li>
             <li class="nav-item btn-right-2">
-              <a href="/settings">
+              <a id="settingsButton">
                 <img
+                  alt="Settings"
                   class="align-self"
-                  src="/website/static/settings.svg"
+                  src="{{ url_for('static', filename='settings.svg') }}"
                   style="
                     height: 35px;
                     width: auto;
@@ -110,10 +111,11 @@
               </a>
             </li>
             <li class="nav-item btn-right-2">
-              <a href="/goodbye">
+              <a id="logoutButton">
                 <img
+                  alt="Logout"
                   class="align-self"
-                  src="/website/static/logout.svg"
+                  src="{{ url_for('static', filename='logout.svg') }}"
                   style="height: 35px; width: auto; padding-top: 4px"
                 />
               </a>
@@ -134,16 +136,29 @@
           <ul>
             <li>
               <p class="data-info">Username:</p>
-              <p id="username">#</p>
+              <p id="username" class="data-info-value">{{data[0].username}}</p>
+            </li>
+            <li>
+              <p class="data-info">Email:</p>
+              <p id="lab" class="data-info-value">{{data[0].email_address}}</p>
             </li>
             <li>
               <p class="data-info">Full name:</p>
-              <p id="first_name">#</p>
-              <p id="last_name">#</p>
+              <p id="first_name" class="data-info-value">
+                {{data[0].first_name}}
+              </p>
+              <p id="last_name" class="data-info-value">
+                {{data[0].last_name}}
+              </p>
             </li>
+
             <li>
               <p class="data-info">Laboratory:</p>
-              <p id="lab">#</p>
+              <p id="lab" class="data-info-value">{{data[0].lab_name}}</p>
+            </li>
+            <li>
+              <p class="data-info">Laboratory role:</p>
+              <p id="lab" class="data-info-value">{{data[0].role}}</p>
             </li>
           </ul>
         </div>
@@ -163,25 +178,68 @@
               >
             </p>
           </div>
+          {% if admin==1 %}
           <div class="admin-box">
             <div class="labcode-box">
               <p class="code-info">
                 This is the unique laboratory code. Every member will need to
                 enter it when creating an account.
               </p>
-
-              <p id="labcode">###</p>
+              <br />
+              <p id="labcode">{{data[0].lab_code}}</p>
             </div>
             <br />
             <div class="users-box">
               <h6>Select a new user to validate their acount:</h6>
+              <div class="scrollable-container">
+                {% for user in data2 %}
+                <div class="user-card container">
+                  <div class="user-names">
+                    {{user.first_name}} {{user.last_name}}
+                  </div>
+                  <button
+                    class="btn validate-btn mb-3 btn-custom justify-self-center"
+                  >
+                    Validate
+                  </button>
+                </div>
+                {% endfor %}
+
+                <!-- <div class="user-card container">
+                  <div class="user-names">a</div>
+                  <button
+                    class="btn validate-btn mb-3 btn-custom justify-self-center"
+                  >
+                    Validate
+                  </button>
+                </div>
+                <div class="user-card container">
+                  <div class="user-names">a</div>
+                  <button
+                    class="btn validate-btn mb-3 btn-custom justify-self-center"
+                  >
+                    Validate
+                  </button>
+                </div>
+                <div class="user-card container">
+                  <div class="user-names">a</div>
+                  <button
+                    class="btn validate-btn mb-3 btn-custom justify-self-center"
+                  >
+                    Validate
+                  </button>
+                </div> -->
+              </div>
             </div>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='nav_bar2.js') }}"></script>
+    <script src="{{ url_for('static', filename='settings.js') }}"></script>
   </body>
 </html>
