@@ -1,6 +1,6 @@
 /* USER INFO */
 
-li {
+.left-container > ul > li {
   list-style-type: none;
   padding-top: 7px;
 }
@@ -28,11 +28,11 @@ p {
 /* RIGHT PART */
 
 .right-container {
-  border: 4px solid purple;
+  /* border: 4px solid purple; */
 }
 
 .button-box {
-  border: 4px solid red;
+  /* border: 4px solid red; */
   width: 100;
   display: flex;
   align-items: center;
@@ -53,8 +53,15 @@ p {
 /* ADMIN BOX */
 
 .admin-box {
-  border: 4px solid orange;
+  /* border: 4px solid orange; */
   border-top: 2px solid #70cfad;
+}
+
+.button-box > .btn {
+  font-size: 14px;
+  width: 180px;
+  margin-bottom: auto;
+  margin-top: auto;
 }
 
 .code-info {
@@ -65,10 +72,13 @@ p {
   font-weight: 600;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 0 !important;
 }
 
 .users-box {
-  border: 4px solid purple;
+  /* border: 4px solid purple; */
+  border-top: 2px solid #70cfad;
+  padding-top: 4px;
 }
 
 .scrollable-container {
@@ -106,4 +116,24 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.validated-btn {
+  height: 25px;
+  font-size: 14px;
+  font-weight: 400 !important;
+  margin-left: 5px;
+  margin-bottom: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b9b6b6 !important;
+}
+
+.no-invalids {
+  font-size: 14px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-top: auto;
 }

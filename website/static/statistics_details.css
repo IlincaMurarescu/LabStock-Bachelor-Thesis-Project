@@ -27,11 +27,12 @@
 .card-substance {
   /* border: 2px solid green; */
 
-  height: 80px;
+  height: 90px;
   border-bottom: 2px solid #70cfad;
 
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .selected {
@@ -88,6 +89,7 @@ svg {
   width: 100%;
   height: 80%;
   position: relative;
+  justify-content: center;
 }
 
 .statistics_box {
@@ -112,7 +114,7 @@ svg {
 .chart-summary {
   position: absolute;
   top: 5%;
-  left: 25%;
+  left: 0;
   font-size: 14px;
   font-weight: 600;
 }

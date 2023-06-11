@@ -7,7 +7,7 @@ white: #FFFBFA
 dark white: #F2EDEB
 black (text): #2D3632
 
-Text size:
+Text size: 16px normal text; 14px small text
 
 Size of underlines: 2px
 
@@ -26,7 +26,7 @@ body {
 
 .btn-custom {
   border-radius: 5px;
-  color: #fffbfa; /* sets the color of the navbar links */
+  color: #fffbfa;
   font-weight: 600 !important;
 }
 
@@ -110,4 +110,8 @@ body {
 .close-button:hover {
   background-color: #fffbfa;
   color: #b9b6b6;
+}
+
+.nav-link:hover {
+  color: #fffbfa;
 }

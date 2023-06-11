@@ -3,23 +3,63 @@ from website import db_functions
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
+import sendgrid
+from sendgrid.helpers.mail import Mail
+# from dotenv import load_dotenv
+import os
+from urllib.parse import quote
 
 auth = Blueprint('auth', __name__)
+
+
+# def token_required(func ):
+#     @wraps(func)
+#     def decorated(*args, **kwargs):
+#         token = request.args.get('token')
+#         if not token:
+#             return jsonify({ 'Alert' : 'Token is missing!' })
+#         try:
+#             payload = jwt.decode(token, 'tralala')
+#         except:
+#             return jsonify({'Alert! ' : 'Invalid token!'})
+#     return decorated
 
 
 def token_required(func ):
     @wraps(func)
     def decorated(*args, **kwargs):
         token = request.args.get('token')
+        if db_functions.validate_blacklist(token) is True:
+            return jsonify({'Alert! ' : 'Invalid token!'})
         if not token:
             return jsonify({ 'Alert' : 'Token is missing!' })
         try:
-            payload = jwt.decode(token, 'tralala')
+          # print("THE TOKEN RECIEVED IS: ", token)
+          payload = jwt.decode(token, 'tralala', "HS256")
         except:
             return jsonify({'Alert! ' : 'Invalid token!'})
+     #    print('E OK TOKEN-UL: ', payload['user'])
+
+        return  func(payload['user'], *args, **kwargs)
+        
     return decorated
 
 
+def token_required_logout(func ):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        token = request.args.get('token')
+        if not token:
+            return jsonify({ 'Alert' : 'Token is missing!' })
+        try:
+          print("THE TOKEN RECIEVED IS: ", token)
+          payload = jwt.decode(token, 'tralala', "HS256")
+        except:
+            return jsonify({'Alert! ' : 'Invalid token!'})
+        db_functions.add_blacklist(token=token)
+        return  func(payload['user'], *args, **kwargs)
+        
+    return decorated
 
 
 @auth.route('/signin',methods=['GET', 'POST'])
@@ -42,9 +82,8 @@ def home():
                 session['logged_in']=True
                 token=jwt.encode({
                     'user': username,
-                    'expiration': str(datetime.utcnow()+timedelta(hours=30))
+                    'expiration': str(datetime.utcnow()+timedelta(hours=6))
                 }, 'tralala', "HS256")
-                print("THE TOKEN IS: ", token)
                 return jsonify({'token': token})
                 # return jsonify({'token' : token.decode('UTF-8')})
                         # jwt.decode(jwt=token, )
@@ -81,7 +120,7 @@ def home():
 #     return render_template('login_test.html')
 
 
-@auth.route('/new_lab_registrationtest', methods=['GET','POST'])
+@auth.route('/new_lab_registration', methods=['GET','POST'])
 def register_labtest():
     
 
@@ -146,7 +185,7 @@ def register_labtest():
 
 
 
-@auth.route('/signuptest', methods=['GET','POST'])
+@auth.route('/signup', methods=['GET','POST'])
 def register_user():
     
 
@@ -178,6 +217,16 @@ def register_user():
             
 
     return render_template('new_user_register.html')
+
+
+@auth.route('/logout', methods=['GET'])
+@token_required_logout
+def logout(user):
+    # token = request.headers.get('Authorization')  # Obțineți token-ul din antetul cererii
+    # db_functions.add_blacklist(token=token)
+    session['logged_in']=False
+    return jsonify({'message': 'Logout done'}), 200
+
 
 
 
@@ -231,4 +280,77 @@ def validate_user(user):
               return jsonify({'message': result}), 400
 
          return jsonify({'message': 'The substance has been deleted!'}), 200
+
+
+@auth.route('/send_email', methods=['GET', 'POST'])
+def email():
+
+    if request.method=='GET':
+        return render_template('forgot_password.html')
+    
+    if request.method=='POST':
+        email=request.form.get('email')
+        if db_functions.validate_register_email(email)==False:
+            username=db_functions.get_username(email)
+            token=jwt.encode({
+                    'user': username,
+                    'expiration': str(datetime.utcnow()+timedelta(hours=6))
+                }, 'tralala', "HS256")
+              # Construirea mesajului de email
+            token = quote(token)
+
+            message = Mail(
+                from_email='labstock23@gmail.com',
+                to_emails='i.murarescuu@gmail.com',
+                subject='Resetare parolă',
+                plain_text_content='Ai solicitat resetarea parolei. Accesează link-ul de mai jos pentru a introduce noua parolă. Atentie! Link-ul va expira în 6 ore.',
+                html_content=f'Ai solicitat resetarea parolei. Accesează <a href="http://127.0.0.1:5000/reset_password?token={token}">link-ul</a> de mai jos pentru a introduce noua parolă. Atentie! Link-ul va expira în 6 ore.'
+            )
+
+            try:
+                # Trimite email-ul folosind SendGrid
+                sg = sendgrid.SendGridAPIClient(api_key='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')
+                response = sg.send(message)
+
+                return jsonify({'message': 'Check your email inbox.'}), 200
+
+            except Exception as e:
+                # Tratează eroarea în cazul în care nu se poate trimite email-ul
+                return jsonify({'message': 'Failed to send email.'}), 500
+            return jsonify({'message': 'Check your email inbox.'}), 200
+        else:
+            return jsonify({'message': 'The email address doesn\'t correspond to an active account.'}), 401
+            
+
+       
+    
+
+@auth.route('/reset_password', methods=['GET', 'POST'])
+@token_required
+def reset_password(user):
+
+    if request.method=='GET':
+        return render_template('reset_password.html')
+    
+    if request.method=='POST':
+        print("----------\n-------PROBA PROBA: ")
+            
+        print("----------\n-------USERUL ESTE: ", user)
+           
+
+
+        # password=request.form.get('password')
+        # password_repeat=request.form.get('repeat_password')
+
+        # if db_functions.validate_register_password(password, password_repeat)==False:
+        #     return jsonify({'message': 'The passwords do not correspond!'}), 401
+        # else:
+        #     update_status=db_functions.update_password(user, password)
+        #     print("----------\n-------PROBA PROBA: ")
+            
+        #     print("----------\n-------USERUL ESTE: ", user)
+        #     if update_status=='User updated':
+        #         return jsonify({'message': 'The password was updated!'}), 200
+        #     else:
+        #         return jsonify({'message': update_status}), 401
 

@@ -37,6 +37,10 @@
     <title>Settings</title>
   </head>
   <body>
+    <div class="error-message" id="error-message">
+      <p class="error-text"></p>
+      <button type="button" class="close-button">X</button>
+    </div>
     <nav class="navbar navbar-expand-sm">
       <div class="container-fluid" style="overflow: hidden">
         <button
@@ -166,44 +170,49 @@
         <div
           class="container right-container d-flex flex-column justify-content-around justify-content-md-around"
         >
-          buton+lista
           <div class="button-box">
-            <button class="btn csv-btn mb-3 btn-custom">
-              Download CSV file
+            <button class="btn stocks-btn mb-3 btn-custom">
+              Download stocks
+            </button>
+            <button class="btn substance-btn mb-3 btn-custom btn-right-2">
+              Download substances
             </button>
             <p class="csv-info">
               <em
-                >Here you can download locally all your current substances
-                stocks.</em
+                >Here you can download locally your all your current veil stocks
+                or general substance info.</em
               >
             </p>
           </div>
           {% if admin==1 %}
           <div class="admin-box">
-            <div class="labcode-box">
+            <div class="labcode-box d-flex flex-column">
               <p class="code-info">
                 This is the unique laboratory code. Every member will need to
                 enter it when creating an account.
               </p>
-              <br />
+              <!-- <br /> -->
               <p id="labcode">{{data[0].lab_code}}</p>
             </div>
             <br />
             <div class="users-box">
               <h6>Select a new user to validate their acount:</h6>
               <div class="scrollable-container">
-                {% for user in data2 %}
+                {% if data2=='There are no accounts left to be validated.' %}
+                <p class="no-invalids">{{ data2 }}</p>
+                {% else %} {% for user in data2 %}
                 <div class="user-card container">
                   <div class="user-names">
                     {{user.first_name}} {{user.last_name}}
                   </div>
                   <button
+                    username="{{user.username}}"
                     class="btn validate-btn mb-3 btn-custom justify-self-center"
                   >
                     Validate
                   </button>
                 </div>
-                {% endfor %}
+                {% endfor %} {% endif %}
 
                 <!-- <div class="user-card container">
                   <div class="user-names">a</div>

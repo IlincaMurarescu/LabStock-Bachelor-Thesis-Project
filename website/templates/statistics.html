@@ -42,6 +42,12 @@
     <title>Statistics</title>
   </head>
   <body>
+    {% if issues[0]!="" or issues[1]!="" %}
+    <div issues="{{issues}}" class="notif-message" id="error-message">
+      <p class="error-text">{{issues[0]}} {{issues[1]}}</p>
+      <button onclick="hideDiv()" type="button" class="close-button">X</button>
+    </div>
+    {% endif %}
     <nav class="navbar navbar-expand-sm">
       <div class="container-fluid" style="overflow: hidden">
         <button

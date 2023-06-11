@@ -111,6 +111,14 @@ def add_one_stock(unique_substance_code, unique_bottle_code, quantity, expiratio
 # print("The user found: " , result)
 
 
+
+
+
+
+
+
+# ================================================================================================
+
 from datetime import datetime, timedelta, date
 
 def ajutor():
@@ -131,15 +139,90 @@ def ajutor():
     #     print(doc['date'])
     #     new Date()
 
-    date=datetime.now()-timedelta(weeks=2)
+    
+
+    date=datetime.now()+timedelta(weeks=7)
     format_date=date.isoformat()
-    new_consumption={"substance_code":"1GJGOpzx",
-               "bottle_code":"COD",
-                "quantity":8,
-                "date": datetime.now()-timedelta(weeks=2)
+    new_consumption={"unique_substance_code":"clI7NRwP",
+               "unique_bottle_code":"f",
+                "original_quantity":10,
+                "current_quantity": 6,
+    "expiration_date":datetime.now()+timedelta(weeks=9),
+                "laboratory_code": "gyeD08ys"
                 }
-    return cons_col.insert_one(new_consumption)
+    return stocks_collection.insert_one(new_consumption)
 
 
 
-ajutor()
+def addstock():
+    
+   
+    new_stock={"unique_substance_code":"clI7NRwP",
+               "unique_bottle_code":"AAAA",
+               "original_quantity":10,
+               "current_quantity": 10,
+                "expiration_date":datetime.now()+timedelta(weeks=1),
+               "laboratory_code": "gyeD08ys",
+               'substance_name':"Coca Cola"
+               }
+    
+    return stocks_collection.insert_one(new_stock)
+
+
+
+
+
+import csv
+import io
+from flask import make_response
+# def get_csv(lab_code):
+#     documents = stocks_collection.find({"laboratory_code": lab_code})
+#      # Creează un flux de fișier în memorie
+#     output = io.StringIO()
+
+#     # Creează un scriitor CSV pentru fluxul de fișier
+#     writer = csv.writer(output)
+
+#     # Scrie antetele coloanelor în fișierul CSV
+#     writer.writerow(["Cod substanta", "Cantitate curenta"])  # Înlocuiește Camp1, Camp2, Camp3 cu numele câmpurilor din colecția Stocks
+
+#     # Iterează prin documente și scrie rândurile în fișierul CSV
+#     for document in documents:
+#         writer.writerow([document["unique_substance_code"], document["current_quantity"]])  # Înlocuiește camp1, camp2, camp3 cu numele câmpurilor din colecția Stocks
+
+#     # Setează cursorul fluxului de fișier la începutul fișierului
+#     output.seek(0)
+
+#     # Creează un răspuns Flask cu fișierul CSV atașat
+#     response = make_response(output.getvalue())
+#     response.headers['Content-Disposition'] = 'attachment; filename=tabel.csv'
+#     response.headers['Content-type'] = 'text/csv'
+
+#     return response
+
+def get_csv(lab_code):
+    documents = stocks_collection.find({"laboratory_code": lab_code})
+    cale_fisier_csv = '/test.csv'
+
+# Deschide fișierul CSV în modul de scriere
+    with open(cale_fisier_csv, 'w', newline='') as csvfile:
+        # Creează un scriitor CSV
+        writer = csv.writer(csvfile)
+
+        # Scrie antetele coloanelor în fișierul CSV
+        writer.writerow(["Cod substanta", "Cantitate curenta"])  # Inlocuieste Camp1, Camp2, Camp3 cu numele campurilor din colectia Stocks
+
+        # Iterează prin documente și scrie rândurile în fișierul CSV
+        for document in documents:
+            writer.writerow([document["unique_substance_code"], document["current_quantity"]])  # Inlocuieste camp1, camp2, camp3 cu numele campurilor din colectia Stocks
+
+
+
+# def delete_expired():
+
+
+
+
+addstock()
+# ajutor()
+# get_csv("gyeD08ys")

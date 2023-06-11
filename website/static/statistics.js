@@ -13,3 +13,8 @@ document.querySelectorAll(".card-substance").forEach(function (element) {
     }
   });
 });
+
+function hideDiv() {
+  var parent = document.getElementById("error-message");
+  parent.style.display = "none !important";
+}

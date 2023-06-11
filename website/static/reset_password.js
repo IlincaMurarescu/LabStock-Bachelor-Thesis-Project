@@ -1,11 +1,11 @@
 document
-  .querySelector(".lab-register-form")
+  .querySelector(".resetpassword-form")
   .addEventListener("submit", (event) => {
     event.preventDefault(); // Prevent the default form submission
 
     const formData = new FormData(event.target);
 
-    fetch("/signup", {
+    fetch("/reset_password", {
       method: "POST",
       body: formData,
       credentials: "include",
@@ -15,7 +15,7 @@ document
         return res.json();
       })
       .then((data) => {
-        if (responseStatus == 401) {
+        if (responseStatus != 200) {
           const errorMessageDiv = document.getElementById("error-message");
           const errorMessage = data.message;
           const errorTextElement = errorMessageDiv.querySelector(".error-text");
@@ -25,19 +25,10 @@ document
           });
           errorTextElement.textContent = errorMessage;
           errorMessageDiv.style.display = "block";
-        }
-
-        if (responseStatus == 200) {
-          const errorMessageDiv = document.getElementById("error-message");
-          const errorMessage = data.message;
-          const errorTextElement = errorMessageDiv.querySelector(".error-text");
-          const closeButton = errorMessageDiv.querySelector(".close-button");
-          closeButton.addEventListener("click", function () {
-            errorMessageDiv.style.display = "none";
-          });
-          errorTextElement.textContent = errorMessage;
-          errorMessageDiv.style.display = "block";
-          errorTextElement.style.color = "green";
+        } else if (responseStatus == 200) {
+          console.log("mesajul este: ", data.message);
+          // var URL = "/new_lab_registration";
+          // location.href = URL;
         }
       })
       .catch((err) => {

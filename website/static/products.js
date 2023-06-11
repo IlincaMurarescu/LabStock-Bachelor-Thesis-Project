@@ -34,13 +34,24 @@ listItems.forEach((item) => {
       .then((data) => {
         if (responseStatus == 200) {
           let html = "";
-          const substancename = data.length > 0 ? data[0].substancename : "";
-
-          html += `
+          // const substancename = data.length > 0 ? data[0].substancename : "";
+          if (data.length != 0) {
+            html += `
           <h6 class="incidents-number-text">
-            <em>Quality incidents for ${substancename}: ${data.length}</em>
+            <em>Quality incidents for ${data[0].substancename}: ${data.length}</em>
           </h6>
         `;
+          } else {
+            html += `
+            <br>
+            <br>
+          <h6 class="incidents-number-text">
+            <em>No quality incidents reported for the selected substance.</em>
+          </h6>
+          <br>
+          
+        `;
+          }
           data.forEach((qi) => {
             html += `
            

@@ -1,7 +1,7 @@
 import random
 import string
 import hashlib
-from website.db_connection import users_collection, stocks_collection, labs_collection, substance_types_collection
+from website.db_connection import users_collection, stocks_collection, labs_collection, substance_types_collection, blacklist_collection
 
 
 #FUNCTII AJUTATOARE PENTRU ADAUGAT--------------------------------------------------------------------
@@ -86,6 +86,9 @@ def add_one_user_admin(username, first_name, last_name, email_address, password,
     return users_collection.insert_one(new_user)
 
 
+def add_blacklist(token):
+    blacklist_collection.insert_one({'token': token})
+
 # FUNCTII VALIDARE--------------------
 
 # validare login
@@ -138,6 +141,10 @@ def validate_register_lab(lab_code):
         return True
     return False
 
+def validate_blacklist(token):
+    if blacklist_collection.find_one({'token': token}):
+        return False
+    return True
 
 # FUNCTII UPDATE---------------------------------------------
 
@@ -152,9 +159,30 @@ def validate_account(username):
         return 'User updated'
     else:
         return 'Something went wrong! Please try again.'
+    
+def update_password(username, password):
+    criteria = {"username": username}
+    print(f"-----\n----- aici in update_password: {username}")
+    user = users_collection.find_one(criteria)
+    if user:
+        user['password']= str(hash_password(password))
+        print(f"-----\n----- aici in update_password parola criptata arata asa: {hash_password(password)}")
+
+        status=users_collection.replace_one(criteria, user)
+        return 'User updated'
+    else:
+        return 'Something went wrong! Please try again.'
 
 
-# print (validate_login_password("a", "ana"))
+# FUNCTII GET----------------
 
+def get_username(email):
+    criteria = {"email_address": email}
+
+    user = users_collection.find_one(criteria)
+    if user:
+        return user['username']
+    else:
+        return 0
 
 

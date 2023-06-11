@@ -5,7 +5,7 @@ document
 
     const formData = new FormData(event.target);
 
-    fetch("/new_lab_registrationtest", {
+    fetch("/new_lab_registration", {
       method: "POST",
       body: formData,
       credentials: "include",
