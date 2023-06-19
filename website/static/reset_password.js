@@ -5,7 +5,15 @@ document
 
     const formData = new FormData(event.target);
 
-    fetch("/reset_password", {
+    var url = window.location.href;
+
+    // Creează un nou obiect URL folosind URL-ul
+    var urlObj = new URL(url);
+
+    // Extrage parametrii din URL
+    var token = urlObj.searchParams.get("token");
+
+    fetch("/reset_password?token=" + encodeURIComponent(token), {
       method: "POST",
       body: formData,
       credentials: "include",

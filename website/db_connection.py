@@ -1,8 +1,7 @@
 from pymongo import MongoClient
 
-# Acasa
+
 cluster="mongodb+srv://ilincamurarescu:9bRJNugJyzA9Sswl@app.epksz7t.mongodb.net/?retryWrites=true&w=majority"
-#Handresti
 
 client=MongoClient(cluster)
 

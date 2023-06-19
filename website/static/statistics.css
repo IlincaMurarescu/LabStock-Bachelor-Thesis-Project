@@ -95,3 +95,7 @@ svg {
 .scrollable-container:last-child {
   border-bottom: none !important;
 }
+
+.notif-message:target {
+  display: none;
+}

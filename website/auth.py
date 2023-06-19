@@ -8,6 +8,8 @@ from sendgrid.helpers.mail import Mail
 # from dotenv import load_dotenv
 import os
 from urllib.parse import quote
+from credentials import sendgrid_key, secret_key
+
 
 auth = Blueprint('auth', __name__)
 
@@ -30,12 +32,12 @@ def token_required(func ):
     def decorated(*args, **kwargs):
         token = request.args.get('token')
         if db_functions.validate_blacklist(token) is True:
-            return jsonify({'Alert! ' : 'Invalid token!'})
+            return jsonify({'Alert! ' : f'Invalid token! The token {token} has been already used.'})
         if not token:
             return jsonify({ 'Alert' : 'Token is missing!' })
         try:
           # print("THE TOKEN RECIEVED IS: ", token)
-          payload = jwt.decode(token, 'tralala', "HS256")
+          payload = jwt.decode(token, secret_key, "HS256")
         except:
             return jsonify({'Alert! ' : 'Invalid token!'})
      #    print('E OK TOKEN-UL: ', payload['user'])
@@ -53,7 +55,7 @@ def token_required_logout(func ):
             return jsonify({ 'Alert' : 'Token is missing!' })
         try:
           print("THE TOKEN RECIEVED IS: ", token)
-          payload = jwt.decode(token, 'tralala', "HS256")
+          payload = jwt.decode(token, secret_key, "HS256")
         except:
             return jsonify({'Alert! ' : 'Invalid token!'})
         db_functions.add_blacklist(token=token)
@@ -83,7 +85,7 @@ def home():
                 token=jwt.encode({
                     'user': username,
                     'expiration': str(datetime.utcnow()+timedelta(hours=6))
-                }, 'tralala', "HS256")
+                }, secret_key, "HS256")
                 return jsonify({'token': token})
                 # return jsonify({'token' : token.decode('UTF-8')})
                         # jwt.decode(jwt=token, )
@@ -294,29 +296,29 @@ def email():
             username=db_functions.get_username(email)
             token=jwt.encode({
                     'user': username,
-                    'expiration': str(datetime.utcnow()+timedelta(hours=6))
-                }, 'tralala', "HS256")
-              # Construirea mesajului de email
+                    'expiration': str(datetime.utcnow()+timedelta(hours=8))
+                }, secret_key, "HS256")
             token = quote(token)
 
             message = Mail(
                 from_email='labstock23@gmail.com',
                 to_emails='i.murarescuu@gmail.com',
-                subject='Resetare parolă',
-                plain_text_content='Ai solicitat resetarea parolei. Accesează link-ul de mai jos pentru a introduce noua parolă. Atentie! Link-ul va expira în 6 ore.',
-                html_content=f'Ai solicitat resetarea parolei. Accesează <a href="http://127.0.0.1:5000/reset_password?token={token}">link-ul</a> de mai jos pentru a introduce noua parolă. Atentie! Link-ul va expira în 6 ore.'
+                subject='Reset password',
+             html_content=f'You have requested a password reset for your LabStock account.  Access <a href="http://127.0.0.1:5000/reset_password?token={token}">this link</a> to enter your new password. \n The link will expire in 8 hours!'
+
             )
 
             try:
-                # Trimite email-ul folosind SendGrid
-                sg = sendgrid.SendGridAPIClient(api_key='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')
+                # sg = sendgrid.SendGridAPIClient(api_key='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')
+
+                sg = sendgrid.SendGridAPIClient(api_key=sendgrid_key)
                 response = sg.send(message)
 
                 return jsonify({'message': 'Check your email inbox.'}), 200
 
             except Exception as e:
-                # Tratează eroarea în cazul în care nu se poate trimite email-ul
                 return jsonify({'message': 'Failed to send email.'}), 500
+            
             return jsonify({'message': 'Check your email inbox.'}), 200
         else:
             return jsonify({'message': 'The email address doesn\'t correspond to an active account.'}), 401
@@ -333,24 +335,24 @@ def reset_password(user):
         return render_template('reset_password.html')
     
     if request.method=='POST':
-        print("----------\n-------PROBA PROBA: ")
+        # print("----------\n-------PROBA PROBA: ")
             
-        print("----------\n-------USERUL ESTE: ", user)
+        # print("----------\n-------USERUL ESTE: ", user)
            
 
 
-        # password=request.form.get('password')
-        # password_repeat=request.form.get('repeat_password')
+        password=request.form.get('password')
+        password_repeat=request.form.get('repeat_password')
 
-        # if db_functions.validate_register_password(password, password_repeat)==False:
-        #     return jsonify({'message': 'The passwords do not correspond!'}), 401
-        # else:
-        #     update_status=db_functions.update_password(user, password)
-        #     print("----------\n-------PROBA PROBA: ")
+        if db_functions.validate_register_password(password, password_repeat)==False:
+            return jsonify({'message': 'The passwords do not correspond!'}), 401
+        else:
+            update_status=db_functions.update_password(user, password)
+            print("----------\n-------PROBA PROBA: ")
             
-        #     print("----------\n-------USERUL ESTE: ", user)
-        #     if update_status=='User updated':
-        #         return jsonify({'message': 'The password was updated!'}), 200
-        #     else:
-        #         return jsonify({'message': update_status}), 401
+            print("----------\n-------USERUL ESTE: ", user)
+            if update_status=='User updated':
+                return jsonify({'message': 'The password was updated!'}), 200
+            else:
+                return jsonify({'message': update_status}), 401
 

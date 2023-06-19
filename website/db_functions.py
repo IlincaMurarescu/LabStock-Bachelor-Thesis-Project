@@ -2,7 +2,7 @@ import random
 import string
 import hashlib
 from website.db_connection import users_collection, stocks_collection, labs_collection, substance_types_collection, blacklist_collection
-
+from datetime import datetime, timedelta
 
 #FUNCTII AJUTATOARE PENTRU ADAUGAT--------------------------------------------------------------------
 def generate_unique_code():
@@ -87,7 +87,7 @@ def add_one_user_admin(username, first_name, last_name, email_address, password,
 
 
 def add_blacklist(token):
-    blacklist_collection.insert_one({'token': token})
+    blacklist_collection.insert_one({'token': token, "date": datetime.now()})
 
 # FUNCTII VALIDARE--------------------
 
@@ -142,7 +142,8 @@ def validate_register_lab(lab_code):
     return False
 
 def validate_blacklist(token):
-    if blacklist_collection.find_one({'token': token}):
+    result=blacklist_collection.find_one({'token': token})
+    if result is None:
         return False
     return True
 
@@ -184,5 +185,16 @@ def get_username(email):
         return user['username']
     else:
         return 0
+    
 
+def delete_blacklist():
+
+    today = datetime.now() - timedelta(hours=8)
+
+
+    to_delete = blacklist_collection.find({"date": {"$lt": today}})
+   
+    for element in to_delete:
+        blacklist_collection.delete_one({"_id": element["_id"]})   
+    print("Am sters ce trebuia")  
 

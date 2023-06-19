@@ -45,7 +45,9 @@
     {% if issues[0]!="" or issues[1]!="" %}
     <div issues="{{issues}}" class="notif-message" id="error-message">
       <p class="error-text">{{issues[0]}} {{issues[1]}}</p>
-      <button onclick="hideDiv()" type="button" class="close-button">X</button>
+      <button type="button" class="close-button">
+        <a href="#error-message" class="close-link">X</a>
+      </button>
     </div>
     {% endif %}
     <nav class="navbar navbar-expand-sm">
@@ -176,5 +178,12 @@
     </div>
     <script src="{{ url_for('static', filename='nav_bar2.js') }}"></script>
     <script src="{{ url_for('static', filename='statistics.js') }}"></script>
+    <script>
+      $(document).ready(function () {
+        $(".close-button").click(function () {
+          $("#error-message").hide();
+        });
+      });
+    </script>
   </body>
 </html>

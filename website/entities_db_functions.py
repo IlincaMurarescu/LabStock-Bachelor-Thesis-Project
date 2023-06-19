@@ -5,6 +5,8 @@ from website.db_functions import generate_unique_code
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
+import os
+import csv
 
 def find_labcode(username):
     result=users_collection.find_one({"username": username}, {"_id": 0, "laboratory_code": 1})
@@ -284,6 +286,23 @@ def get_csv_info_substances(username):
     return documents
 
 
+def get_backup_csv():
+    collections=[labs_collection, users_collection, substance_types_collection, stocks_collection, consumption_collection ,quality_incidents_collection]
+    i=0
+    for collection in collections:
+        data = list(collection.find())
+
+        i+=1
+        csv_filename = f'Collection_{i}.csv'
+
+        if os.path.exists(csv_filename):
+            os.remove(csv_filename)
+
+        with open(csv_filename, 'w', newline='') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=data[0].keys())
+            writer.writeheader()
+            writer.writerows(data)
+
 
 
 
@@ -300,7 +319,7 @@ def get_substance_week_average(substance_code):
         'date': {'$gte': one_week_ago.strftime('%d/%m/%Y'), '$lte': today.strftime('%d/%m/%Y')}
     }
 
-    result = consumption_collection.find(condition)  # înlocuiește 'nume_colectie' cu numele colecției reale
+    result = consumption_collection.find(condition)  
     if result is None:
         return 0
     total_quantity = 0
@@ -324,10 +343,9 @@ def estimate_limitdate(average_consumption, substance_code):
      total_quantity_left=data[0]['total_quantity']
      inferior_limit=data[0]['inferior_limit']
      date=datetime.today()
-     print("average cosumption: ", average_consumption)
+     
      if average_consumption!=0:
         while inferior_limit<total_quantity_left:
-            print("date: ", date)
             date+=timedelta(weeks=1)
             total_quantity_left-=average_consumption
         return date.strftime("%d/%m/%Y")
@@ -355,10 +373,8 @@ def calculate_consumption(substance_code, num_months):
             
             result = consumption_collection.find(criteria)
 
-            # Calculează suma cantității pentru săptămâna curentă
             quantity_sum = sum([doc['quantity'] for doc in result])
 
-            # Adaugă suma cantității și perioada în listele corespunzătoare
             total_sum_quantity+=quantity_sum
             consumption_sum.append(quantity_sum)
             string_start=start_date.strftime('%d/%m/%Y')
@@ -384,7 +400,6 @@ def calculate_consumption(substance_code, num_months):
             # end_date = current_date - relativedelta(months=i)
 
 
-            # Calculate the month name
             month_name = start_date.strftime("%B")
 
             criteria = {
@@ -394,10 +409,8 @@ def calculate_consumption(substance_code, num_months):
 
             result = consumption_collection.find(criteria)
 
-            # Calculate the sum of quantity for the current month
             quantity_sum = sum(doc['quantity'] for doc in result)
 
-            # Append the sum of quantity and month name to the corresponding lists
             total_sum_quantity+=quantity_sum
             consumption_sum.append(quantity_sum)
             periods.append(month_name)
@@ -414,36 +427,25 @@ def calculate_consumption(substance_code, num_months):
 
     if num_months==12:
 
-        current_date = datetime.now().replace(day=1)  # Setăm ziua curentă ca fiind prima zi a lunii
-
-        # current_date = datetime.now()
+        current_date = datetime.now().replace(day=1) 
 
         for i in range(12):
             
             i=12-1-i
             start_date = current_date - relativedelta(months=i + 1)
             end_date = start_date + relativedelta(day=1, months=+1) - timedelta(days=1)
-
  
-            # start_date = current_date - relativedelta(months=i + 1)
-            # end_date = current_date - relativedelta(months=i)
-
-
-            # Calculate the month name
             month_name = start_date.strftime("%B")
 
             criteria = {
                 'substance_code': substance_code,
                 'date': {'$gte': start_date, '$lt': end_date}
             }
-
             result = consumption_collection.find(criteria)
 
-            # Calculate the sum of quantity for the current month
             quantity_sum = sum(doc['quantity'] for doc in result)
-
-            # Append the sum of quantity and month name to the corresponding lists
             total_sum_quantity+=quantity_sum
+            
             consumption_sum.append(quantity_sum)
             periods.append(month_name)
 
@@ -475,17 +477,17 @@ def get_stocks_situation(substance_code):
     else:
         for doc in result:
             if doc['original_quantity']==doc['current_quantity'] and doc['expiration_date']<next_month:
-                sig_exp[0]+=doc['current_quantity'] #cantitate produs
-                sig_exp[1]+=1 #nr flacoane
+                sig_exp[0]+=doc['current_quantity'] 
+                sig_exp[1]+=1 
             elif doc['original_quantity']==doc['current_quantity'] and doc['expiration_date']>next_month:
-                            sig_nexp[0]+=doc['current_quantity'] #cantitate produs
-                            sig_nexp[1]+=1 #nr flacoane
+                            sig_nexp[0]+=doc['current_quantity'] 
+                            sig_nexp[1]+=1 
             elif doc['original_quantity']!=doc['current_quantity'] and doc['expiration_date']<next_month:
-                                        nesig_exp[0]+=doc['current_quantity'] #cantitate produs
-                                        nesig_exp[1]+=1 #nr flacoane
+                                        nesig_exp[0]+=doc['current_quantity'] 
+                                        nesig_exp[1]+=1 
             elif doc['original_quantity']!=doc['current_quantity'] and doc['expiration_date']>next_month:
-                                                    nesig_nexp[0]+=doc['current_quantity'] #cantitate produs
-                                                    nesig_nexp[1]+=1 #nr flacoane
+                                                    nesig_nexp[0]+=doc['current_quantity'] 
+                                                    nesig_nexp[1]+=1 
 
         data={'labels': ['Sealed and expiring in the next month', 'Sealed and not expiring in the next month', 'Unsealed and expiring in the next month', 'Unsealed and not expiring in the next month'],
               'values': [sig_exp, sig_nexp, nesig_exp, nesig_nexp]}
@@ -503,7 +505,6 @@ def get_prediction(substance_code, number_months):
     months_chart=[]
     quantity_left_chart=[]
     for i in range(number_months):  
-        # i=6-1-i
         date = current_date + relativedelta(months=i + 1)
         month_name = date.strftime("%B")
 
@@ -577,7 +578,7 @@ def update_bottle_usage(substance_code,bottle_code, quantity):
         added_consumption_status=add_consumption(substance_code, bottle_code, quantity)
         return 'Bottle updated'
     else:
-        return 'Veil not found for the substance selected. Check the identification code again, or the substance selected.'
+        return 'Veil not found for the substance selected or the product has expired. Check the identification code again, or the substance selected.'
     
 
 def update_substace_usage(substance_code, quantity):
@@ -649,6 +650,29 @@ def delete_one_substance(substance_code):
 
         return 'Entity not found or unable to delete'
     
+def delete_expired_stocks():
+
+    today = datetime.now()
+
+    stocks_to_delete = stocks_collection.find({"expiration_date": {"$lt": today}})
+    for stock in stocks_to_delete:
+        current_quantity = stock['current_quantity']
+        unique_substance_code = stock['unique_substance_code']
+
+        substance = substance_types_collection.find_one({"unique_substance_code": unique_substance_code})
+        if substance:
+            total_quantity = substance['total_quantity']
+
+            updated_total_quantity = float(total_quantity) - float(current_quantity)
+            substance_types_collection.update_one(
+                {"unique_substance_code": unique_substance_code},
+                {"$set": {"total_quantity": float(updated_total_quantity)}}
+            )
+
+        stocks_collection.delete_one({"_id": stock["_id"]})     
+
+    print("Aceasta este o funcție apelată periodic. ", datetime.now())
+
 
 
     #  EXPORT CSV

@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from functools import wraps
 from website import entities_db_functions
 from website.aux_functions import is_valid_date, is_number
-
+from credentials import secret_key
 
 views = Blueprint('views', __name__)
 
@@ -15,13 +15,15 @@ def token_required(func ):
     @wraps(func)
     def decorated(*args, **kwargs):
         token = request.args.get('token')
-        if db_functions.validate_blacklist(token) is False:
-            return jsonify({'Alert! ' : 'Invalid token!'})
+        if db_functions.validate_blacklist(token) is True:
+            return jsonify({'Alert! ' : f'Invalid token! The token {token} has been already used.'})
         if not token:
             return jsonify({ 'Alert' : 'Token is missing!' })
         try:
           # print("THE TOKEN RECIEVED IS: ", token)
-          payload = jwt.decode(token, 'tralala', "HS256")
+        #   payload = jwt.decode(token, 'tralala', "HS256")
+          payload = jwt.decode(token, secret_key, "HS256")
+
         except:
             return jsonify({'Alert! ' : 'Invalid token!'})
      #    print('E OK TOKEN-UL: ', payload['user'])
@@ -270,11 +272,9 @@ def statistics_details(user):
                 'values': quantities}
             return jsonify({"data": data, "chartSummary": [charttexttotal, charttextaverage, estimate_date]}), 200      
         elif chart_type==2:
-            print("s-a facut request pentru al doilea tip de chart")
             data, mysum=entities_db_functions.get_stocks_situation(substance_code)
             return jsonify({"data": data, "chartSummary": mysum}), 200
         else:
-            print("s-a facut request pentru al treilea tip de chart")
             time_period=data['timePeriod']
             months, quantity_left, monthly_average=entities_db_functions.get_prediction(substance_code, time_period)
             data={ 'labels': months, 

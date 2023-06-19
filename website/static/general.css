@@ -108,10 +108,21 @@ body {
 }
 
 .close-button:hover {
-  background-color: #fffbfa;
-  color: #b9b6b6;
+  background-color: #8e8d8d;
+  color: #8e8d8d;
 }
 
 .nav-link:hover {
   color: #fffbfa;
+}
+
+.close-link {
+  color: #fffbfa;
+  text-decoration: none;
+}
+
+.close-link:hover {
+  /* background-color: #fffbfa; */
+  color: #fffbfa;
+  text-decoration: none;
 }
