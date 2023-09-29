@@ -4,7 +4,7 @@ import hashlib
 from website.db_connection import users_collection, stocks_collection, labs_collection, substance_types_collection, blacklist_collection
 from datetime import datetime, timedelta
 
-#FUNCTII AJUTATOARE PENTRU ADAUGAT--------------------------------------------------------------------
+#FUNCTII AJUTATOARE--------------------------------------------------------------------
 def generate_unique_code():
     return (''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=8)))
 
@@ -187,6 +187,8 @@ def get_username(email):
         return 0
     
 
+    
+# FUNCTII DELETE----------------
 def delete_blacklist():
 
     today = datetime.now() - timedelta(hours=8)

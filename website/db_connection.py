@@ -1,7 +1,7 @@
 from pymongo import MongoClient
+from credentials import mongodb_key
 
-
-cluster="mongodb+srv://ilincamurarescu:9bRJNugJyzA9Sswl@app.epksz7t.mongodb.net/?retryWrites=true&w=majority"
+cluster="mongodb+srv://ilincamurarescu:"+mongodb_key+"@app.epksz7t.mongodb.net/?retryWrites=true&w=majority"
 
 client=MongoClient(cluster)
 

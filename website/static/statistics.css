@@ -19,7 +19,7 @@
 /* CARDS */
 
 .scrollable-container {
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   height: 90%;
@@ -44,7 +44,6 @@
   justify-content: space-evenly;
 }
 .card-substance:hover {
-  /* asta nu e albul inchis ales initial, e cel de la scrollbar dar parca arata mai bine */
   background-color: #f1f1f1;
   cursor: pointer;
 }
@@ -98,4 +97,12 @@ svg {
 
 .notif-message:target {
   display: none;
+}
+
+/* media queries */
+
+@media (max-width: 1030px) {
+  .statistics-line {
+    font-size: 13px !important;
+  }
 }

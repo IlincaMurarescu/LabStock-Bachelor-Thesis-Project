@@ -1,8 +1,8 @@
 from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
-from website.entities_db_functions import delete_expired_stocks, get_backup_csv
-from website.db_functions import delete_blacklist
+from website.model_entities import delete_expired_stocks, get_backup_csv
+from website.model_auth import delete_blacklist
 from credentials import secret_key
 
 def create_app():

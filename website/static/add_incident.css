@@ -30,3 +30,11 @@ form {
   flex-direction: column;
   justify-content: space-around;
 }
+
+/* media queries */
+
+@media (max-width: 1198px) {
+  .form-box {
+    width: 490px;
+  }
+}

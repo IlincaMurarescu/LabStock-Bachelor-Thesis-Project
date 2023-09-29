@@ -1,5 +1,4 @@
 window.addEventListener("load", function () {
-  // Function to run when the page is loaded
   console.log("Aici avem", localStorage.getItem("token"));
 });
 
@@ -8,10 +7,8 @@ window.addEventListener("load", function () {
 const listItems = document.querySelectorAll(".scrollable-container > div");
 listItems.forEach((item) => {
   item.addEventListener("click", () => {
-    // Remove the 'selected' class from all items
     listItems.forEach((item) => item.classList.remove("selected"));
 
-    // Add the 'selected' class to the clicked item
     item.classList.add("selected");
     substanceCode = item.getAttribute("substance-code");
     console.log(substanceCode);
@@ -34,7 +31,6 @@ listItems.forEach((item) => {
       .then((data) => {
         if (responseStatus == 200) {
           let html = "";
-          // const substancename = data.length > 0 ? data[0].substancename : "";
           if (data.length != 0) {
             html += `
           <h6 class="incidents-number-text">
@@ -63,17 +59,10 @@ listItems.forEach((item) => {
         </div>`;
           });
 
-          // console.log(html);
 
           document.querySelector(".reviews-container").innerHTML = html;
 
-          //   document.querySelector(
-          //     ".mychildren-list"
-          //   ).innerHTML = `<div class="mychildren-list-element">
-          //   <img class="child-icon" alt="Child" src="SVG/child-icon.svg" />
-          //   <p class="child-name">${data.data.first_name} ${data.data.last_name} </p>
-          //   <p class="child-details">Last seen at ${data.data.longitude}</p>
-          // </div>`;
+          
         }
       })
       .catch((error) => {
@@ -90,7 +79,6 @@ document
     if (token) {
       location.href = "/add_substance?token=" + encodeURIComponent(token);
     } else {
-      // Handle case when token is not present
       alert("Token is missing. Please log in first.");
     }
   });
@@ -102,7 +90,6 @@ document
     if (token) {
       location.href = "/edit_substance?token=" + encodeURIComponent(token);
     } else {
-      // Handle case when token is not present
       alert("Token is missing. Please log in first.");
     }
   });
@@ -122,7 +109,6 @@ document.getElementById("addqiButton").addEventListener("click", function () {
       "&token=" +
       encodeURIComponent(token);
   } else {
-    // Handle case when token is not present
     alert("Token is missing. Please log in first.");
   }
 });
@@ -130,7 +116,7 @@ document.getElementById("addqiButton").addEventListener("click", function () {
 // SCORE SUBMIT
 
 document.querySelector(".score-form").addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent the default form submission
+  event.preventDefault(); 
 
   const formData = new FormData(event.target);
   const substanceCode = document

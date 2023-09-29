@@ -1,7 +1,7 @@
 document
   .querySelector(".lab-register-form")
   .addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const formData = new FormData(event.target);
 

@@ -49,21 +49,17 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((res) => {
         if (res.ok) {
-          // CSV download successful
           return res.blob();
         } else {
-          // CSV download failed, handle the error
           throw new Error("CSV download failed");
         }
       })
       .then((blob) => {
-        // ==============================================bun pt 1 csv V
-        // Create a temporary URL for the downloaded file
+        // ==============================================1 csv V
         const url = window.URL.createObjectURL(blob);
-        // Create a temporary link element
         const link = document.createElement("a");
         link.href = url;
-        link.download = "Stocks.csv"; // Set the desired filename for the downloaded file
+        link.download = "Stocks.csv"; 
         link.click();
         window.URL.revokeObjectURL(url);
         link.remove();
@@ -84,21 +80,17 @@ document.addEventListener("DOMContentLoaded", function () {
     })
       .then((res) => {
         if (res.ok) {
-          // CSV download successful
           return res.blob();
         } else {
-          // CSV download failed, handle the error
           throw new Error("CSV download failed");
         }
       })
       .then((blob) => {
-        // ==============================================bun pt 1 csv V
-        // Create a temporary URL for the downloaded file
+        // ==============================================1 csv V
         const url = window.URL.createObjectURL(blob);
-        // Create a temporary link element
         const link = document.createElement("a");
         link.href = url;
-        link.download = "Substances.csv"; // Set the desired filename for the downloaded file
+        link.download = "Substances.csv"; 
         link.click();
         window.URL.revokeObjectURL(url);
         link.remove();

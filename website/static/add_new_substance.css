@@ -39,7 +39,7 @@ form {
   /* border: 4px solid red; */
   margin-left: 0px;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .info_text_select {
@@ -82,4 +82,39 @@ svg {
 .buttons-container {
   max-height: 10%;
   /* border: 2px solid orange; */
+}
+
+/* media queries */
+
+@media (max-width: 1198px) {
+  .add-substance-form {
+    width: 390px;
+  }
+
+  .left-container {
+    margin-right: 20px;
+    width: 400px;
+  }
+}
+
+@media (max-width: 991px) {
+  .left-container {
+    margin-right: 25px;
+  }
+}
+
+@media (max-width: 770px) {
+  .main-container {
+    flex-direction: column !important ;
+    width: 100%;
+  }
+
+  .left-container {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .add-substance-form {
+    margin-bottom: 90px;
+  }
 }

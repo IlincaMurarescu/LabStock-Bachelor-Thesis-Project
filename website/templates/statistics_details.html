@@ -45,89 +45,72 @@
   <body>
     <nav class="navbar navbar-expand-sm">
       <div class="container-fluid" style="overflow: hidden">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse"
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a
+              id="newstockButton"
+              class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
+              >New stock</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              id="trackusageButton"
+              class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-2 btn-right-nav1"
+              >Track usage</a
+            >
+          </li>
+        </ul>
+        <a
+          id="statisticsButton0"
+          class="navbar-brand mx-auto"
           style="overflow: hidden"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a
-                id="newstockButton"
-                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
-                >New stock</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                id="trackusageButton"
-                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-2 btn-right-nav1"
-                >Track usage</a
-              >
-            </li>
-          </ul>
-          <a
-            id="statisticsButton0"
-            class="navbar-brand mx-auto"
-            style="overflow: hidden"
-            ><img
-              class="logo"
-              src="{{ url_for('static', filename='LabStockLogo.svg') }}"
-              alt="Logo"
-          /></a>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item text-center">
-              <a
-                id="statisticsButton"
-                class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                >Statistics</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                id="substancesButton"
-                class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                >Substances</a
-              >
-            </li>
-            <li class="nav-item btn-right-2">
-              <a id="settingsButton">
-                <img
-                  alt="Settings"
-                  class="align-self"
-                  src="{{ url_for('static', filename='settings.svg') }}"
-                  style="
-                    height: 35px;
-                    width: auto;
-                    padding-top: 4px;
-                    color: #fffbfa;
-                  "
-                />
-              </a>
-            </li>
-            <li class="nav-item btn-right-2">
-              <a id="logoutButton">
-                <img
-                  alt="Logout"
-                  class="align-self"
-                  src="{{ url_for('static', filename='logout.svg') }}"
-                  style="height: 35px; width: auto; padding-top: 4px"
-                />
-              </a>
-            </li>
-          </ul>
-        </div>
+          ><img
+            class="logo"
+            src="{{ url_for('static', filename='LabStockLogo.svg') }}"
+            alt="Logo"
+        /></a>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item text-center">
+            <a
+              id="statisticsButton"
+              class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
+              >Statistics</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              id="substancesButton"
+              class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
+              >Substances</a
+            >
+          </li>
+          <li class="nav-item btn-right-2">
+            <a id="settingsButton">
+              <img
+                alt="Settings"
+                class="align-self"
+                src="{{ url_for('static', filename='settings.svg') }}"
+                style="
+                  height: 35px;
+                  width: auto;
+                  padding-top: 4px;
+                  color: #fffbfa;
+                "
+              />
+            </a>
+          </li>
+          <li class="nav-item btn-right-2">
+            <a id="logoutButton">
+              <img
+                alt="Logout"
+                class="align-self"
+                src="{{ url_for('static', filename='logout.svg') }}"
+                style="height: 35px; width: auto; padding-top: 4px"
+              />
+            </a>
+          </li>
+        </ul>
       </div>
     </nav>
     <div
@@ -163,30 +146,7 @@
             </p>
           </div>
         </div>
-        <div class="statistics-row d-flex">
-          <!-- <p class="chart-summary">
-            Total quantity consumed: . Average consumption: /week
-          </p>
-          <canvas class="statistics_box" id="statistics_box"> </canvas>
-          <div class="buttons-box d-flex flex-column">
-            <button
-              id="3m-btn"
-              class="btn 3m-btn mb-3 btn-custom justify-self-center"
-            >
-              3 months</button
-            ><button
-              id="6m-btn"
-              class="btn 6m-btn mb-3 btn-custom justify-self-center"
-            >
-              6 months</button
-            ><button
-              id="1y-btn"
-              class="btn 1y-btn mb-3 btn-custom justify-self-center"
-            >
-              1 year
-            </button>
-          </div> -->
-        </div>
+        <div class="statistics-row d-flex"></div>
       </div>
     </div>
     <script src="{{ url_for('static', filename='nav_bar2.js') }}"></script>

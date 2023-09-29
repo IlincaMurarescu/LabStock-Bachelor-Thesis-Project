@@ -1,21 +1,19 @@
-/* .container_elements {
-  width: 80%;
-} */
-
 .who_title {
   padding-bottom: 3px;
 
   border-bottom: 2px solid #70cfad;
-  width: 40%;
+  width: 180px;
 }
 
 .about_us_table {
-  max-width: 70%;
+  width: 70%;
+  height: 490px;
+  overflow-y: auto;
 }
 
 .features_box {
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 170px;
   width: 90%;
 }

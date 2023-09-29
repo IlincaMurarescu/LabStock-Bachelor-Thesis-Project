@@ -1,7 +1,7 @@
 document
   .querySelector(".forgotpassword-form")
   .addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const formData = new FormData(event.target);
 

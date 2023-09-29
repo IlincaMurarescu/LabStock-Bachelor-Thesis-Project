@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Your code here
-  // This code will run when the DOM is fully loaded
+ 
   console.log(
-    "in addqi js asa avem substanceCodeQi: " +
+    "substanceCodeQi: " +
       localStorage.getItem("substanceCodeQi")
   );
 });
 
 document.querySelector(".qi-form").addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent the default form submission
+  event.preventDefault(); 
 
   const formData = new FormData(event.target);
   console.log(

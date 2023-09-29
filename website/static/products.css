@@ -1,13 +1,7 @@
-.main-container {
-  /* border: 2px solid black; */
-}
-
 /*RIGHT PART*/
 .container-right {
   width: 60%;
   height: 100%;
-  /* border: 2px solid red; */
-  /* place-content: start space-evenly !important; */
 }
 
 /* SCORE */
@@ -54,7 +48,7 @@
   border-bottom: 2px solid #70cfad;
   max-height: 85%;
   /* border: 2px solid brown; */
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
 }
 
@@ -109,7 +103,7 @@
   /* border: 4px solid red; */
   margin-left: 0px;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .info_text_select {
@@ -127,7 +121,6 @@
   border-bottom: 2px solid #70cfad;
 }
 .card-substance:hover {
-  /* asta nu e albul inchis ales initial, e cel de la scrollbar dar parca arata mai bine */
   background-color: #f1f1f1;
   cursor: pointer;
 }
@@ -164,4 +157,33 @@ svg {
 .buttons-container {
   max-height: 10%;
   /* border: 2px solid orange; */
+}
+
+/* media queries */
+
+@media (max-width: 830px) {
+  .main-container {
+    flex-direction: column !important ;
+    width: 100%;
+  }
+
+  .left-container {
+    margin-bottom: 30px;
+    margin-right: 0;
+    height: 390px !important;
+    width: 90%;
+  }
+
+  .buttons-container {
+    max-height: none;
+    margin-top: 3px;
+  }
+
+  .container-right {
+    width: 80%;
+  }
+
+  .buttons-container-right {
+    margin-bottom: 20px;
+  }
 }

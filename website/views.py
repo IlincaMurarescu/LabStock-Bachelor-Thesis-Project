@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, flash, session, jsonify, make_response
-from website import db_functions
+from website import model_auth
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
-from website import entities_db_functions
+from website import model_entities
 from website.aux_functions import is_valid_date, is_number
 from credentials import secret_key
 
@@ -15,18 +15,17 @@ def token_required(func ):
     @wraps(func)
     def decorated(*args, **kwargs):
         token = request.args.get('token')
-        if db_functions.validate_blacklist(token) is True:
+        if model_auth.validate_blacklist(token) is True:
             return jsonify({'Alert! ' : f'Invalid token! The token {token} has been already used.'})
         if not token:
             return jsonify({ 'Alert' : 'Token is missing!' })
         try:
-          # print("THE TOKEN RECIEVED IS: ", token)
-        #   payload = jwt.decode(token, 'tralala', "HS256")
+       
           payload = jwt.decode(token, secret_key, "HS256")
 
         except:
             return jsonify({'Alert! ' : 'Invalid token!'})
-     #    print('E OK TOKEN-UL: ', payload['user'])
+    
 
         return  func(payload['user'], *args, **kwargs)
         
@@ -45,9 +44,9 @@ def aboutus():
 @views.route('/statistics')
 @token_required
 def statistics(user):
-     lab_code=entities_db_functions.find_labcode(user)
-     data=entities_db_functions.get_lab_substances(lab_code)
-     issues_q, issues_e=entities_db_functions.get_issues(user)
+     lab_code=model_entities.find_labcode(user)
+     data=model_entities.get_lab_substances(lab_code)
+     issues_q, issues_e=model_entities.get_issues(user)
      if len(issues_q)!=0:
          quantity_alert=f"The substance {issues_q[0]} produced by {issues_q[1]} is close to the inferior limit set."
      else:
@@ -61,9 +60,9 @@ def statistics(user):
 @views.route('/substances',methods=['GET', 'POST'])
 @token_required
 def prod(user):
-     lab_code=entities_db_functions.find_labcode(user)
+     lab_code=model_entities.find_labcode(user)
 
-     data=entities_db_functions.get_lab_substances(lab_code)
+     data=model_entities.get_lab_substances(lab_code)
      return render_template('products.html', data=data)
 
 @views.route('/get_qualityi',methods=[ 'POST'])
@@ -71,10 +70,8 @@ def prod(user):
 def get_qualityi(user):
       if request.method == 'POST':
          data=request.json
-         print("------macar suntem aici! avem si data: ", data)
          unique_substance_code=data['substanceCode']
-         data=entities_db_functions.get_substance_qi(unique_substance_code)
-         print("------functia returneaza asta: ", data)
+         data=model_entities.get_substance_qi(unique_substance_code)
 
          return jsonify(data), 200
 
@@ -85,16 +82,16 @@ def get_qualityi(user):
 @token_required
 def addsubstance(user):
      if request.method == 'GET':
-          lab_code=entities_db_functions.find_labcode(user)
+          lab_code=model_entities.find_labcode(user)
 
-          data=entities_db_functions.get_lab_substances(lab_code)
+          data=model_entities.get_lab_substances(lab_code)
           return render_template('add_new_substance.html', data=data)
      if request.method == 'POST':
          substance_name=request.form.get('substance_name')
          substance_producer=request.form.get('substance_producer')
          substance_inferiorlimit=request.form.get('substance_inferiorlimit')
-         lab_code=entities_db_functions.find_labcode(user)
-         result=entities_db_functions.add_one_substance(substance_name, substance_producer, substance_inferiorlimit, lab_code)
+         lab_code=model_entities.find_labcode(user)
+         result=model_entities.add_one_substance(substance_name, substance_producer, substance_inferiorlimit, lab_code)
          return jsonify({'message': 'The substance has been added!'}), 200
             
 
@@ -102,17 +99,17 @@ def addsubstance(user):
 @token_required
 def editsubstance(user):
      if request.method == 'GET':
-          lab_code=entities_db_functions.find_labcode(user)
+          lab_code=model_entities.find_labcode(user)
 
-          data=entities_db_functions.get_lab_substances(lab_code)
+          data=model_entities.get_lab_substances(lab_code)
           return render_template('edit_substance.html', data=data)
      
      if request.method == 'POST':
          substance_name=request.form.get('substance_name')
          substance_producer=request.form.get('substance_producer')
          unique_substance_code=request.form.get('substanceCode')
-         lab_code=entities_db_functions.find_labcode(user)
-         result=entities_db_functions.edit_one_substance(substance_name, substance_producer, unique_substance_code)
+         lab_code=model_entities.find_labcode(user)
+         result=model_entities.edit_one_substance(substance_name, substance_producer, unique_substance_code)
          return jsonify({'message': 'The substance has been edited!'}), 200
 
 
@@ -126,8 +123,8 @@ def deletesubstance(user):
          data=request.json
 
          unique_substance_code=data['substanceCode']
-         lab_code=entities_db_functions.find_labcode(user)
-         result=entities_db_functions.delete_one_substance( unique_substance_code)
+         lab_code=model_entities.find_labcode(user)
+         result=model_entities.delete_one_substance( unique_substance_code)
          return jsonify({'message': 'The substance has been deleted!'}), 200
 
 
@@ -138,7 +135,7 @@ def scoresubmit(user):
      if request.method == 'POST':
          substance_score=request.form.get('score')
          substance_code=request.form.get('substanceCode')
-         result=entities_db_functions.update_score(substance_score, substance_code)
+         result=model_entities.update_score(substance_score, substance_code)
          return jsonify({'message': 'The substance has been edited!'}), 200
 
 
@@ -148,7 +145,7 @@ def scoresubmit(user):
 def addqi(user):
      if request.method == 'GET':
           substancecode=request.args.get('substancecode')
-          data=entities_db_functions.get_substance_nameprod(substancecode)
+          data=model_entities.get_substance_nameprod(substancecode)
           return render_template('add_incident.html', data=data)
      if request.method == 'POST':
          content=request.form.get('content')
@@ -156,8 +153,8 @@ def addqi(user):
          username=user
          local = datetime.now()
          date= local.strftime("%d/%m/%Y")                      
-         lab_code=entities_db_functions.find_labcode(user)
-         result=entities_db_functions.add_qi(content, date, substance_code, user, lab_code)
+         lab_code=model_entities.find_labcode(user)
+         result=model_entities.add_qi(content, date, substance_code, user, lab_code)
          return jsonify({'message': 'The qi has been added!'}), 200
 
 
@@ -167,8 +164,8 @@ def addqi(user):
 def addstock(user):
      if request.method == 'GET':
 
-          lab_code=entities_db_functions.find_labcode(user)
-          data=entities_db_functions.get_lab_substances(lab_code)
+          lab_code=model_entities.find_labcode(user)
+          data=model_entities.get_lab_substances(lab_code)
 
           return render_template('add_stock.html', data=data)
 
@@ -188,8 +185,8 @@ def addstock(user):
 
          
      
-         lab_code=entities_db_functions.find_labcode(user)
-         result=entities_db_functions.add_one_stock(substancecode, bottlecode, quantity, expiration_date, lab_code)
+         lab_code=model_entities.find_labcode(user)
+         result=model_entities.add_one_stock(substancecode, bottlecode, quantity, expiration_date, lab_code)
          if isinstance(result, str):
               return jsonify({'message': result}), 400
 
@@ -204,8 +201,8 @@ def addstock(user):
 def trackusage(user):
      if request.method == 'GET':
 
-          lab_code=entities_db_functions.find_labcode(user)
-          data=entities_db_functions.get_lab_substances(lab_code)
+          lab_code=model_entities.find_labcode(user)
+          data=model_entities.get_lab_substances(lab_code)
 
           return render_template('track_usage.html', data=data)
 
@@ -217,7 +214,7 @@ def trackusage(user):
          if is_number(quantity) is False:
              return jsonify({'message': 'Please enter a number for the quantity.'}), 400
         
-         result=entities_db_functions.update_after_usage(substancecode, bottlecode, quantity)
+         result=model_entities.update_after_usage(substancecode, bottlecode, quantity)
          if result!='Quantities updated':
              return jsonify({'message': result}), 400
 
@@ -229,17 +226,16 @@ def trackusage(user):
 def settings(user):
      if request.method == 'GET':
 
-          data=entities_db_functions.get_user_data(user)
-          data2=entities_db_functions.get_invalidusers(user)
+          data=model_entities.get_user_data(user)
+          data2=model_entities.get_invalidusers(user)
           if data2==0:
               return render_template('settings.html', data=data, admin=0)
-          print("VALIDATE IS: ", data2)
           return render_template('settings.html', data=data, data2=data2, admin=1)
 
      if request.method == 'POST':
          data=request.json
          username=data['username']
-         result=entities_db_functions.validate_user(username)
+         result=model_entities.validate_user(username)
 
          if result!='User updated':
              return jsonify({'message': result}), 400
@@ -253,7 +249,7 @@ def settings(user):
 def statistics_details(user):
     if request.method=='GET':
         substance_code=request.args.get('substanceCode')
-        substance=entities_db_functions.get_substance_info(substance_code)
+        substance=model_entities.get_substance_info(substance_code)
         
         return render_template('statistics_details.html', substance=substance)
 
@@ -263,7 +259,7 @@ def statistics_details(user):
         chart_type=data['chartType']
         if chart_type==1:
             time_period=data['timePeriod']
-            periods, quantities, charttexttotal, charttextaverage, estimate_date=entities_db_functions.calculate_consumption(substance_code, time_period)
+            periods, quantities, charttexttotal, charttextaverage, estimate_date=model_entities.calculate_consumption(substance_code, time_period)
             if charttextaverage.is_integer():
                 charttextaverage=int(charttextaverage)
             else:
@@ -272,11 +268,11 @@ def statistics_details(user):
                 'values': quantities}
             return jsonify({"data": data, "chartSummary": [charttexttotal, charttextaverage, estimate_date]}), 200      
         elif chart_type==2:
-            data, mysum=entities_db_functions.get_stocks_situation(substance_code)
+            data, mysum=model_entities.get_stocks_situation(substance_code)
             return jsonify({"data": data, "chartSummary": mysum}), 200
         else:
             time_period=data['timePeriod']
-            months, quantity_left, monthly_average=entities_db_functions.get_prediction(substance_code, time_period)
+            months, quantity_left, monthly_average=model_entities.get_prediction(substance_code, time_period)
             data={ 'labels': months, 
                 'values': quantity_left}
             return jsonify({"data": data, "chartSummary": monthly_average}), 200
@@ -292,17 +288,17 @@ from pymongo import MongoClient
 @token_required
 def stocks_csv(user):
    
-    documents = entities_db_functions.get_csv_info_stocks(user)
+    documents = model_entities.get_csv_info_stocks(user)
     output = io.StringIO()
 
     writer = csv.writer(output)
 
   
-    writer.writerow(["Substance name", "Veil code", "Initial quantity", "Current quantity", "Expiration date"])  # Înlocuiește Camp1, Camp2, Camp3 cu numele câmpurilor din colecția Stocks
+    writer.writerow(["Substance name", "Veil code", "Initial quantity", "Current quantity", "Expiration date"])  
 
    
     for document in documents:
-        writer.writerow([document["substance_name"], document['unique_bottle_code'],document['original_quantity'],document["current_quantity"], document['expiration_date']])  # Înlocuiește camp1, camp2, camp3 cu numele câmpurilor din colecția Stocks
+        writer.writerow([document["substance_name"], document['unique_bottle_code'],document['original_quantity'],document["current_quantity"], document['expiration_date']])  
     
     output.seek(0)
 
@@ -317,18 +313,18 @@ def stocks_csv(user):
 @token_required
 def substances_csv(user):
    
-    documents = entities_db_functions.get_csv_info_substances(user)
+    documents = model_entities.get_csv_info_substances(user)
     output = io.StringIO()
 
     writer = csv.writer(output)
 
   
-    writer.writerow(["Substance name", "Producer", "Current quantity"])  # Înlocuiește Camp1, Camp2, Camp3 cu numele câmpurilor din colecția Stocks
+    writer.writerow(["Substance name", "Producer", "Current quantity"])  
 
    
     for document in documents:
-        writer.writerow([document["substance_name"], document['producer_name'],document['total_quantity']])  # Înlocuiește camp1, camp2, camp3 cu numele câmpurilor din colecția Stocks
-    
+        writer.writerow([document["substance_name"], document['producer_name'],document['total_quantity']]) 
+
     output.seek(0)
 
     response = make_response(output.getvalue())

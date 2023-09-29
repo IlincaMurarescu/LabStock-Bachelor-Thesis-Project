@@ -29,3 +29,20 @@
   height: 35px;
   width: auto;
 }
+
+/* media queries navbar1*/
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    display: none;
+  }
+
+  .navbar-nav {
+    flex-direction: row !important;
+  }
+  .nav-link,
+  .navbar-nav {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+}

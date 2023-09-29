@@ -42,95 +42,78 @@
     </div>
     <nav class="navbar navbar-expand-sm">
       <div class="container-fluid" style="overflow: hidden">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse"
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a
+              id="newstockButton"
+              class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
+              >New stock</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              id="trackusageButton"
+              class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-2 btn-right-nav1"
+              >Track usage</a
+            >
+          </li>
+        </ul>
+        <a
+          id="statisticsButton0"
+          class="navbar-brand mx-auto"
           style="overflow: hidden"
-          id="navbarNav"
-        >
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a
-                id="newstockButton"
-                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-nav1"
-                >New stock</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                id="trackusageButton"
-                class="nav-link btn btn-sm btn-custom shadow-none btn-custom-white btn-right-2 btn-right-nav1"
-                >Track usage</a
-              >
-            </li>
-          </ul>
-          <a
-            id="statisticsButton0"
-            class="navbar-brand mx-auto"
-            style="overflow: hidden"
-            ><img
-              class="logo"
-              src="{{ url_for('static', filename='LabStockLogo.svg') }}"
-              alt="Logo"
-          /></a>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item text-center">
-              <a
-                id="statisticsButton"
-                class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                >Statistics</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                id="substancesButton"
-                class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
-                >Substances</a
-              >
-            </li>
-            <li class="nav-item btn-right-2">
-              <a id="settingsButton">
-                <img
-                  alt="Settings"
-                  class="align-self"
-                  src="{{ url_for('static', filename='settings.svg') }}"
-                  style="
-                    height: 35px;
-                    width: auto;
-                    padding-top: 4px;
-                    color: #fffbfa;
-                  "
-                />
-              </a>
-            </li>
-            <li class="nav-item btn-right-2">
-              <a id="logoutButton">
-                <img
-                  alt="Logout"
-                  class="align-self"
-                  src="{{ url_for('static', filename='logout.svg') }}"
-                  style="height: 35px; width: auto; padding-top: 4px"
-                />
-              </a>
-            </li>
-          </ul>
-        </div>
+          ><img
+            class="logo"
+            src="{{ url_for('static', filename='LabStockLogo.svg') }}"
+            alt="Logo"
+        /></a>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item text-center">
+            <a
+              id="statisticsButton"
+              class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
+              >Statistics</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              id="substancesButton"
+              class="nav-link btn btn-sm btn-custom shadow-none btn-right-nav1"
+              >Substances</a
+            >
+          </li>
+          <li class="nav-item btn-right-2">
+            <a id="settingsButton">
+              <img
+                alt="Settings"
+                class="align-self"
+                src="{{ url_for('static', filename='settings.svg') }}"
+                style="
+                  height: 35px;
+                  width: auto;
+                  padding-top: 4px;
+                  color: #fffbfa;
+                "
+              />
+            </a>
+          </li>
+          <li class="nav-item btn-right-2">
+            <a id="logoutButton">
+              <img
+                alt="Logout"
+                class="align-self"
+                src="{{ url_for('static', filename='logout.svg') }}"
+                style="height: 35px; width: auto; padding-top: 4px"
+              />
+            </a>
+          </li>
+        </ul>
       </div>
     </nav>
 
     <div
       class="container-fluid d-flex flex-column justify-content-center align-items-center"
-      style="background-color: #fffbfa; height: calc(100vh - 60px)"
+      style="background-color: #fffbfa; height: calc(100vh - 63px)"
     >
       <div
         class="main-container container h-75 d-flex flex-row justify-content-between align-items-center px-0"
@@ -158,105 +141,6 @@
                 <p class="card-text">{{ substance.producer_name }}</p>
               </div>
               {% endfor %}
-              <!-- <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div>
-              <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div>
-              <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div>
-              <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div>
-              <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div>
-              <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div>
-              <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div>
-              <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div>
-              <div class="container card-substance">
-                <div class="stars-container d-flex justify-content-start">
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                  <svg>a</svg>
-                </div>
-                <h5 class="card-title m-0"><b>Bold text</b></h5>
-                <p class="card-text">Smaller text underneath the first text</p>
-              </div> -->
             </div>
           </div>
         </div>

@@ -1,16 +1,14 @@
 document
   .querySelector(".resetpassword-form")
   .addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const formData = new FormData(event.target);
 
     var url = window.location.href;
 
-    // Creează un nou obiect URL folosind URL-ul
     var urlObj = new URL(url);
 
-    // Extrage parametrii din URL
     var token = urlObj.searchParams.get("token");
 
     fetch("/reset_password?token=" + encodeURIComponent(token), {
@@ -34,9 +32,8 @@ document
           errorTextElement.textContent = errorMessage;
           errorMessageDiv.style.display = "block";
         } else if (responseStatus == 200) {
-          console.log("mesajul este: ", data.message);
-          // var URL = "/new_lab_registration";
-          // location.href = URL;
+          var URL = "/signin";
+          location.href = URL;
         }
       })
       .catch((err) => {

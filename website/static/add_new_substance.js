@@ -1,47 +1,7 @@
-// fetch(
-//   "/add_substance?token=" + encodeURIComponent(localStorage.getItem("token"))
-// )
-//   .then((response) => {
-//     if (!response.ok) {
-//       throw Error("Error");
-//     }
-//     // console.log(response);
-//     // console.log(response.text());
-//     return response.json();
-//   })
-//   .then((data) => {
-//     // console.log(data);
-//     // console.log(data[0].first_name);
-//     // console.log(data[1].first_name);
-//     // const html = data.map((child) => {
-//     //   return `<p>Name: ${child.first_name}`;
-//     // });
-//     let html = "";
-//     data.map((substance) => {
-//       html += `<div class="container card-substance">
-//       <div class="stars-container d-flex justify-content-start">
-//         <svg>a</svg>
-//         <svg>a</svg>
-//         <svg>a</svg>
-//         <svg>a</svg>
-//         <svg>a</svg>
-//       </div>
-//       <h5 class="card-title m-0"><b>${substance.substance_name}</b></h5>
-//       <p class="card-text">${substance.producer_name}</p>
-//     </div>`;
-//     });
-
-//     console.log(html);
-//     document.querySelector(".scrollable-container").innerHTML = html;
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-
 document
   .querySelector(".addsubstance-form")
   .addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
     const formData = new FormData(event.target);
     token = localStorage.getItem("token");

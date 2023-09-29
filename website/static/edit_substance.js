@@ -1,20 +1,17 @@
 const listItems = document.querySelectorAll(".scrollable-container > div");
 listItems.forEach((item) => {
   item.addEventListener("click", () => {
-    // Remove the 'selected' class from all items
     listItems.forEach((item) => item.classList.remove("selected"));
 
-    // Add the 'selected' class to the clicked item
     item.classList.add("selected");
-    // substanceCode = item.getAttribute("substance-code");
-    // console.log(substanceCode);
+   
   });
 });
 
 document
   .querySelector(".editsubstance-form")
   .addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
 
     const formData = new FormData(event.target);
     const substanceCode = document
@@ -60,9 +57,7 @@ document
 document.addEventListener("DOMContentLoaded", function () {
   var element = document.querySelector(".delete-btn");
 
-  // Add click event listener to the element
   element.addEventListener("click", function () {
-    // Perform the desired action, such as sending a request
     token = localStorage.getItem("token");
     const substanceCode = document
       .querySelector(".selected")

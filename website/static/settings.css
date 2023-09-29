@@ -81,11 +81,11 @@ p {
   padding-top: 4px;
 }
 
-.scrollable-container {
+.autoable-container {
   height: 90px;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .scrollable-container:last-child {
@@ -136,4 +136,20 @@ p {
   margin-right: auto;
   margin-bottom: auto;
   margin-top: auto;
+}
+
+/* media queries */
+
+@media (max-width: 910px) {
+  .main-container {
+    flex-direction: column !important ;
+    width: 100%;
+  }
+
+  .left-container {
+    margin-bottom: 30px;
+    margin-right: 0;
+    height: 390px !important;
+    width: 60%;
+  }
 }

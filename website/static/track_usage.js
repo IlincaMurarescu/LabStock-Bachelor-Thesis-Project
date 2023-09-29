@@ -1,21 +1,17 @@
 const listItems = document.querySelectorAll(".scrollable-container > div");
 listItems.forEach((item) => {
   item.addEventListener("click", () => {
-    // Remove the 'selected' class from all items
     listItems.forEach((item) => item.classList.remove("selected"));
 
-    // Add the 'selected' class to the clicked item
     item.classList.add("selected");
-    // substanceCode = item.getAttribute("substance-code");
-    // console.log(substanceCode);
+    
   });
 });
 
 document
   .querySelector(".trackusage-form")
   .addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent the default form submission
-
+    event.preventDefault(); 
     const formData = new FormData(event.target);
     const substanceCode = document
       .querySelector(".selected")

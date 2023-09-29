@@ -1,6 +1,6 @@
 from website.db_connection import users_collection, stocks_collection, labs_collection, substance_types_collection, quality_incidents_collection, consumption_collection
 
-from website.db_functions import generate_unique_code
+from website.model_auth import generate_unique_code
 
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -361,7 +361,7 @@ def calculate_consumption(substance_code, num_months):
     if num_months==3:
         for i in range (11, -1, -1):
 
-        # for i in range (12):
+       
             start_date = datetime.now() - timedelta(weeks=i+1)
             end_date = datetime.now() - timedelta(weeks=i)
 
@@ -386,9 +386,9 @@ def calculate_consumption(substance_code, num_months):
     
     if num_months==6:
 
-        current_date = datetime.now().replace(day=1)  # Setăm ziua curentă ca fiind prima zi a lunii
+        current_date = datetime.now().replace(day=1)  
 
-        # current_date = datetime.now()
+       
 
         for i in range(6):
             
@@ -396,8 +396,7 @@ def calculate_consumption(substance_code, num_months):
             start_date = current_date - relativedelta(months=i + 1)
             end_date = start_date + relativedelta(day=1, months=+1) - timedelta(days=1)
 
-            # start_date = current_date - relativedelta(months=i + 1)
-            # end_date = current_date - relativedelta(months=i)
+           
 
 
             month_name = start_date.strftime("%B")
@@ -418,7 +417,7 @@ def calculate_consumption(substance_code, num_months):
 
 
         weekly_average=total_sum_quantity/(4*6)
-        print("--------------------------THE PERIODS FOUND ARE: ", periods)
+       
 
         estimate_date=estimate_limitdate(weekly_average, substance_code)
         return periods, consumption_sum, total_sum_quantity, weekly_average, estimate_date
@@ -674,32 +673,3 @@ def delete_expired_stocks():
     print("Aceasta este o funcție apelată periodic. ", datetime.now())
 
 
-
-    #  EXPORT CSV
-
-
-# def export_csv(lab_code):
-#      # Query the collection to retrieve the data
-#     data = substance_types_collection.find({ 'lab_code': lab_code })  # Apply your desired filters here
-
-#     # Create a CSV file
-#     csv_data = []
-#     csv_headers = ['Substance_name', 'Producer', 'Current_quantity']  # Define your CSV headers
-
-#     for item in data:
-#         # Format the data as per your requirements
-#         csv_row = [item['substance_name'], item['producer_name'], item['total_quantity']]
-#         csv_data.append(csv_row)
-
-#     # Create a response with the CSV file
-#     response = make_response('')
-#     response.headers['Content-Disposition'] = 'attachment; filename=data.csv'
-#     response.headers['Content-Type'] = 'text/csv'
-
-#     # Write the data to the CSV file
-#     with response.stream as csv_file:
-#         writer = csv.writer(csv_file)
-#         writer.writerow(csv_headers)
-#         writer.writerows(csv_data)
-
-#     return response

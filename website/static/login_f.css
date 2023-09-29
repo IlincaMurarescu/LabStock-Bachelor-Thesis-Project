@@ -1,6 +1,6 @@
 .sign-in-form {
   min-width: 40%;
-  height: 70%;
+  height: 320px;
   border-top: 2px solid #70cfad;
   border-bottom: 2px solid #70cfad;
   align-self: center;
@@ -16,9 +16,3 @@ form {
   flex-direction: column;
   justify-content: space-around;
 }
-
-/* .info_link:hover,
-.info_link:active {
-  color: ;
-  border-color: ;
-} */

@@ -1,22 +1,22 @@
 /* Nav bar */
 
 .navbar {
-  background-color: #70cfad; /* sets the background color of the navbar */
+  background-color: #70cfad;
 }
 
 .navbar-toggler-icon {
-  background-color: #fffbfa; /* sets the color of the navbar toggler icon */
+  background-color: #fffbfa;
 }
 
 /* Buttons nav bar */
 
 .navbar-nav .nav-link {
-  color: #fffbfa; /* sets the color of the navbar links */
+  color: #fffbfa;
   font-weight: 600;
 }
 
 .navbar-nav .nav-link:hover {
-  background-color: #69be9f; /* sets the hover color of the navbar links background */
+  background-color: #69be9f;
 }
 
 .btn-right-nav1 {
@@ -39,4 +39,31 @@
 
 #logoutButton {
   cursor: pointer;
+}
+
+/* media queries navbar2*/
+
+@media (max-width: 775px) {
+  .navbar-brand {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar > .container-fluid {
+    flex-wrap: nowrap !important;
+  }
+
+  .nav-link {
+    font-size: 12px !important;
+  }
+
+  .navbar-nav {
+    flex-direction: row !important;
+  }
+  .nav-link,
+  .navbar-nav {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+  }
 }
